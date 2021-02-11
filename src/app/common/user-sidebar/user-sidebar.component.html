@@ -1,0 +1,126 @@
+<!--<div class="mobile-menu-wrap" id="modSideMenu">
+	<div class="side-bar-mob">
+		<ul>
+			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a href="javascript:void(0)" [routerLink]="['/dashboard']">{{'dashboard' | translate}}</a></li>
+			<li [routerLinkActive]="[active]" [routerLinkActiveOptions]="{match:['/','/account/personal-info']}"><a href="javascript:void(0)" routerLink="/account/personal-info">{{'myaccount' | translate}}</a></li>
+			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a href="javascript:void(0)" [routerLink]="['/appointments']">{{'appointments' | translate}}</a></li>
+			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a href="javascript:void(0)" [routerLink]="['/email/list']">{{'email' | translate}}</a></li>
+			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a href="javascript:void(0)" [routerLink]="['/wishlist']">{{'wishlist' | translate}}</a></li>
+			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='consultant'"><a href="javascript:void(0)" [routerLink]="['/reviews']">{{'reviews' | translate}}</a></li>
+			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a href="#">{{'transactions' | translate}}</a></li>
+			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a href="#" (click)="logout()">{{'logout' | translate}}</a></li>
+		</ul>
+	</div>
+</div>-->
+
+<div class="side-bar">
+	<ul>
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='consultant'">
+			<a href="javascript:void(0)" [routerLink]="['/account/consultant/dashboard']">
+				<i class="fal fa-fw fa-tachometer-alt-fast"></i>
+				<span>{{'dashboard' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='user'">
+			<a href="javascript:void(0)" [routerLink]="['/account/client/dashboard']">
+				<i class="fal fa-fw fa-tachometer-alt-fast"></i>
+				<span>{{'dashboard' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='consultant'">
+			<a href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/personal-info']">
+				<i class="fal fa-fw fa-user"></i>
+				<span>{{'myaccount' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='consultant'">
+			<a href="javascript:void(0)" target="_blank" [routerLink]="['/consultant-details']" [queryParams]="{id: user_id}">
+				<i class="fal fa-fw fa-user-tie"></i>
+				<span>{{'my_public_profile' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='user'">
+			<a href="javascript:void(0)" [routerLink]="['/account/client/myprofile/personal-info']">
+				<i class="fal fa-fw fa-user"></i>
+				<span>{{'myaccount' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='consultant'">
+			<a href="javascript:void(0)" [routerLink]="['/account/consultant/appointments']">
+				<i class="fal fa-fw fa-list-ul"></i>
+				<span>{{'appointments' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='consultant'">
+			<a href="javascript:void(0)" [routerLink]="['/account/consultant/my-clients']">
+				<i class="fal fa-fw fa-users"></i>
+				<span>{{'my_clients' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='user'">
+			<a href="javascript:void(0)" [routerLink]="['/account/client/wishlist']">
+				<i class="fal fa-fw fa-heart"></i>
+				<span>{{'favourite_clients' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='user'">
+			<a href="javascript:void(0)" [routerLink]="['/account/client/appointments']">
+				<i class="fal fa-fw fa-list-ul"></i>
+				<span>{{'appointments' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='consultant'">
+			<a href="javascript:void(0)" [routerLink]="['/account/consultant/email/list']">
+				<i class="fal fa-fw fa-envelope"></i>
+				<span>{{'email' | translate}}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='user'">
+			<a href="javascript:void(0)" [routerLink]="['/account/client/email/list']">
+				<i class="fal fa-fw fa-envelope"></i>
+				<span>{{'email' | translate}}</span>
+			</a>
+		</li>
+		<!-- <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='user'">
+			<a href="javascript:void(0)" [routerLink]="['/account/client/wishlist']">
+				<i class="fal fa-fw fa-heart"></i>
+				<span>{{'wishlist' | translate}}</span>
+			</a>
+		</li> -->
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="role=='consultant'">
+			<a href="javascript:void(0)" [routerLink]="['/account/consultant/reviews']">
+				<i class="fal fa-fw fa-stars"></i>
+				<span>{{'reviews' | translate}}</span>
+			</a>
+		</li>
+		<!-- <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+			<a href="#">
+				<i class="fal fa-fw fa-money-check-alt"></i>
+				<span>{{'transactions' | translate}}</span>
+			</a>
+		</li> -->
+		<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+			<a href="javascript:void(0)" (click)="logout()">
+				<i class="fal fa-fw fa-sign-out"></i>
+				<span>{{'logout' | translate}}</span>
+			</a>
+		</li>
+		<li *ngIf="role=='consultant'">
+			<a href="javascript:void(0)" class="status-switch {{(active_status=='1')?'active':(active_status=='3')?'busy':''}}" (click)="changeStatus()">
+				<span>{{(active_status=='1')?('online' | translate):(active_status=='3')?('busy' | translate):('offline' | translate)}}</span>
+				<ng-template [ngIf]="active_status!=3">{{'set' | translate}} {{(active_status=='2' || active_status=='3')?('online' | translate):('offline' | translate)}}</ng-template>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="sidebar-overlay"></div>

@@ -1,0 +1,474 @@
+<div class="search-container">
+  <div class="search-header">
+    <div class="search-title">{{'search' | translate}}</div>
+    <a href="javascript:void(0)" class="btn-close"><i class="fal fa-fw fa-times"></i></a> </div>
+  <form class="form-content">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="{{'search_psycho_name_word_phrase' | translate}}" [(ngModel)]="keyword" name="keyword" />
+    </div>
+    <div class="form-group">
+      <label class="control-label">{{'nationality' | translate}}</label>
+      <select class="form-control select2" id="nationality">
+        <option value="" selected>{{'any' | translate}}</option>
+        <option value="{{nationality.id}}" *ngFor="let nationality of NationalityList">{{nationality.nationality}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label">{{'language' | translate}}</label>
+      <select class="form-control select2-nosearch" id="language">
+        <option value="" selected>{{'any' | translate}}</option>
+        <option value="{{language.id}}" *ngFor="let language of LanguageList">{{language.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label">{{'area_of_intervention' | translate}}</label>
+      <select class="form-control select2" id="intervention_ids">
+        <option value="" selected>{{'any' | translate}}</option>
+        <option value="{{intervention.id}}" *ngFor="let intervention of InterventionList">{{intervention.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label">{{'gender' | translate}}</label>
+      <div class="checkbox-group" id="gender_checkbox">
+        <div class="custom-checkbox">
+          <input type="checkbox" class="custom-checkbox-input" name="gender" value="1"/>
+          <div class="custom-checkbox-label">{{'male' | translate}}</div>
+        </div>
+        <div class="custom-checkbox ml-3">
+          <input type="checkbox" class="custom-checkbox-input" name="gender" value="2"/>
+          <div class="custom-checkbox-label">{{'female' | translate}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">{{'status' | translate}}</label>
+      <div class="checkbox-group" id="status_checkbox">
+        <div class="custom-checkbox">
+          <input type="checkbox" class="custom-checkbox-input" name="status" value="1"/>
+          <div class="custom-checkbox-label">Online</div>
+        </div>
+        <div class="custom-checkbox ml-3">
+          <input type="checkbox" class="custom-checkbox-input" name="status" value="2"/>
+          <div class="custom-checkbox-label">Offline</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">{{'mode' | translate}}</label>
+      <div class="checkbox-group" id="mode_checkbox">
+        <div class="custom-checkbox">
+          <input type="checkbox" name="checkbox-02" class="custom-checkbox-input" value="1"/>
+          <div class="custom-checkbox-label">{{'chat' | translate}}</div>
+        </div>
+        <div class="custom-checkbox ml-3">
+          <input type="checkbox" name="checkbox-02" class="custom-checkbox-input" value="2"/>
+          <div class="custom-checkbox-label">{{'voice' | translate}}</div>
+        </div>
+        <div class="custom-checkbox ml-3">
+          <input type="checkbox" name="checkbox-02" class="custom-checkbox-input" value="3"/>
+          <div class="custom-checkbox-label">{{'video' | translate}}</div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <a href="javascript:void(0)" class="btn-submit" (click)="searchConsultant()"> <i class="fal fa-fw fa-search mr-2"></i> <span>{{'search' | translate}}</span></a>
+</div>
+
+<section class="sec-banner">
+  <div class="banner-slider owl-carousel">
+    <ng-container *ngFor="let image of bannerList">
+      <div class="item"> <img src="{{image.image}}" alt="{{image.title}}"/> </div>
+    </ng-container>
+  </div>
+  <div class="container">
+    <div class="banner-content">
+      <div class="banner-title">{{bannerData.banner_title}}</div>
+      <div class="banner-subtitle">{{bannerData.banner_subtitle}}</div>
+      <div class="banner-actions"> 
+        <!--<a href="javascript:void(0)" class="btn-action" [routerLink]="['/consultants']">{{'book_now' | translate}}</a> --> 
+        <a href="javascript:void(0)" class="btn-action btn-search" tooltip="{{'banner_button' | translate}}" placement="top">{{'search' | translate}} {{'consultant' | translate}}</a> </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec-about">
+  <div class="container">
+    <div class="about-wrap">
+      <div class="welcome">
+        <div [innerHTML]="CmsData.description"></div>
+        <div class="methods">
+          <div class="methods-action" *ngIf="!user_id"> <a href="javascript:void(0)" class="btn-action" [routerLink]="['/register']">{{'signup_now' | translate}}</a> </div>
+        </div>
+      </div>
+      <div class="counter">
+        <div class="item">
+          <div class="item-count">{{WebCount.consultant}}</div>
+          <div class="item-title">{{'consultant' | translate}}</div>
+        </div>
+        <div class="item">
+          <div class="item-count">{{WebCount.intervention}}</div>
+          <div class="item-title">{{'areas_of_intervention' | translate}}</div>
+        </div>
+        <div class="item">
+          <div class="item-count">{{WebCount.appointment}}</div>
+          <div class="item-title">{{'consulted' | translate}}</div>
+        </div>
+        <div class="item">
+          <div class="item-count">{{WebCount.user}}</div>
+          <div class="item-title">{{'satisfied_customers' | translate}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec-service">
+  <div class="container">
+    <div class="section-title">
+      <h1 class="title">{{'services_we_offered' | translate}}</h1>
+    </div>
+    <div class="service-wrap"> <a href="javascript:void(0)" class="item" *ngFor="let offer of OfferedList">
+      <div class="icon"><i class="fal fa-fw {{offer.icon}}"></i></div>
+      <div class="item-title">{{offer.name}}</div>
+      <div class="item-text">{{offer.description}}</div>
+      </a> </div>
+  </div>
+</section>
+
+<section class="sec-steps">
+  <div class="container">
+    <div class="section-title title-alt">
+      <h1 class="title">{{'getting_started_easy' | translate}}</h1>
+    </div>
+    <div class="steps-wrap">
+      <div class="item" *ngFor="let item of GettingStartedList">
+        <div class="icon"><i class="fad {{item.icon}}"></i></div>
+        <div class="item-title">{{item.name}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-consultant">
+  <div class="container">
+    <div class="section-title">
+      <h1 class="title">{{'available_consultant' | translate}}</h1>
+    </div>
+    <div class="consultant-wrap">
+      <div class="item {{(consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1) && consultant.appointment_id==null && consultant.active_status==1)?'online':(consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1) && consultant.active_status=='3')?'busy':''}}" *ngFor="let consultant of consultantList | slice:0:4;let i=index">
+        <div class="item-stats">
+          <div class="item-image" (click)="navigatePage(consultant)"> <img src="{{consultant.image}}" alt="" onError="this.src='assets/img/profile-icon.png'" /> </div>
+          <div class="rating-wrap">
+            <div class="rating">
+              <div class="back"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
+              <div class="front" [ngStyle]="{'width':(consultant.rating*20) + '%'}"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
+            </div>
+            <div class="average-rating" *ngIf="consultant.rating"> <span>{{consultant.rating}}</span> </div>
+          </div>
+          <div class="review-count">
+            <div class="title">{{'based_on' | translate}}</div>
+            <div class="count">{{consultant.review}}</div>
+          </div>
+          <div class="online-status">
+            <div class="status" *ngIf="(consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1) && consultant.appointment_id==null && consultant.active_status==1)">
+              <div class="icon"></div>
+              <div class="text">Online</div>
+            </div>
+            <div class="status" *ngIf="consultant.active_status==2">
+              <div class="icon"></div>
+              <div class="text">Offline</div>
+            </div>
+            <div class="status" *ngIf="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1) && consultant.active_status=='3'">
+              <div class="icon"></div>
+              <div class="text">Busy</div>
+            </div>
+          </div>
+        </div>
+        <div class="item-info">
+          <div class="item-name" (click)="navigatePage(consultant)">{{consultant.profile_name}}</div>
+          <div class="item-designation" (click)="navigatePage(consultant)">{{consultant.professional_qualifications}}</div>
+          <div class="item-intervention">
+            <!-- <div class="intervention-label">Intervention:</div> -->
+            <div class="intervention-data">{{consultant.interventions}}</div>
+          </div>
+          <div class="item-nationality" (click)="navigatePage(consultant)">
+            <!-- <div class="nationality-label">Nationality:</div> -->
+            <div class="nationality-data">
+              <div class="nationality-flag"><img src="assets/img/flags/4x3/{{consultant.nationality_code | lowercase}}.svg" alt=""/></div>
+              <div class="nationality-name">{{consultant.nationality}}</div>
+            </div>
+          </div>
+          <div class="item-meta" *ngIf="consultant.price || consultant.language_names">
+            <div class="item-rate" (click)="navigatePage(consultant)">{{consultant.currency}} {{consultant.price}}<small>/min</small></div>
+            <div class="item-language" (click)="navigatePage(consultant)" *ngIf="consultant.language_names">
+              <div class="language-icon"><i class="far fa-fw fa-language"></i></div>
+              <div class="language-name">{{consultant.language_names}}</div>
+            </div>
+          </div>
+          <div class="item-description" *ngIf="consultant.biography_short_description">{{consultant.biography_short_description}}</div>
+          <div class="item-action" *ngIf="role!='consultant'">
+            <ng-template [ngIf]="(consultant.account_info_completed==1 && 
+            consultant.biography_info_completed==1 && 
+            consultant.fiscal_info_completed==1 && 
+            consultant.insurance_info_completed==1 && 
+            consultant.intervention_info_completed==1 && 
+            consultant.language_info_completed==1 && 
+            consultant.membership_info_completed==1 && 
+            consultant.personal_info_completed==1 && 
+            consultant.service_offered_info_completed==1)" [ngIfElse]="profile_incomplete">
+              <ng-template [ngIf]="consultant.active_status==1 && consultant.next_appointment_status==2">
+                <ng-template [ngIf]="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1) &&  consultant.active_status==1 && consultant.stripe_account_id!=null">
+                  <ng-template [ngIf]="consultant.mode.indexOf('2')> -1">
+                    <a href="javascipt:void(0)" class="btn-action {{(consultant.mode.indexOf('1')== -1)?'action-full':''}}" (click)="startConversation('2',consultant)" tooltip="{{'consultant_voice_btn' | translate}}" placement="top">
+                      <i class="fal fa-fw fa-phone fa-flip-horizontal"></i>
+                      <span>{{'voice' | translate}}</span>
+                    </a>
+                  </ng-template>
+                  <ng-template [ngIf]="consultant.mode.indexOf('1')> -1">
+                    <a href="javascipt:void(0)" class="btn-action {{(consultant.mode.indexOf('2')== -1)?'action-full':''}}" (click)="startConversation('1',consultant)" tooltip="{{'consultant_chat_btn' | translate}}" placement="top">
+                      <i class="fal fa-fw fa-comments-alt"></i>
+                      <span>{{'chat' | translate}}</span>
+                    </a>
+                  </ng-template>
+                  <ng-template [ngIf]="consultant.mode.indexOf('3')> -1">
+                    <a href="javascipt:void(0)" class="btn-action action-full" (click)="startConversation('3',consultant)" tooltip="{{'consultant_video_btn' | translate}}" placement="top">
+                      <i class="fal fa-fw fa-video"></i>
+                      <span>{{'video' | translate}}</span>
+                    </a>
+                  </ng-template>
+                </ng-template>
+              </ng-template>
+            </ng-template>
+            <ng-template #profile_incomplete>
+              <div class="item-info">
+                <div class="item-description">{{(consultant.account_info_completed==2)?('account_info'| translate):''}} {{(consultant.biography_info_completed==2)?('biography_info'| translate):''}} {{(consultant.fiscal_info_completed==2)?('fiscal_info'| translate):''}} {{(consultant.insurance_info_completed==2)?('insurance_info'| translate):''}} {{(consultant.membership_info_completed==2)?('membership_info'| translate):''}} {{(consultant.personal_info_completed==2)?('membership_info'| translate):''}}
+                  {{(consultant.service_offered_info_completed==2)?('services_offered_info'| translate):''}}
+                  {{ 'is_incomplete' | translate}}
+                </div>
+              </div>
+            </ng-template>
+            <ng-template [ngIf]="consultant.daily_schedule_info_completed==1" [ngIfElse]="schedule_incomplete">
+              <ng-template [ngIf]="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('2')> -1) && consultant.stripe_account_id!=null">  
+                <a href="javascipt:void(0)" class="btn-action action-full btn-action-alt" (click)="getServiceAppoint(consultant.id,consultant.stripe_customer_id)" tooltip="{{'consultant_booking_btn' | translate}}" placement="top">
+                  <i class="fal fa-fw fa-calendar-alt"></i>
+                  <span>{{'book_consultant' | translate}}</span>
+                </a>
+              </ng-template>
+            </ng-template>
+            <ng-template #schedule_incomplete>
+               <div class="item-info">
+                <div class="item-description">{{(consultant.daily_schedule_info_completed==2)?('daily_schedule'| translate):''}}
+                  {{ 'is_incomplete' | translate}}
+                </div>
+              </div>
+            </ng-template>
+            <!--<ng-template [ngIf]="consultant.daily_schedule_info_completed==1">
+              <ng-template [ngIf]="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('2')> -1) && consultant.stripe_account_id!=null && consultant.active_status=='2'">  
+                <a href="javascipt:void(0)" class="btn-action action-full" (click)="getServiceAppoint(consultant.id,consultant.stripe_customer_id)">
+                  <i class="fal fa-fw fa-calendar-alt"></i>
+                  <span>{{'book_consultant' | translate}}</span>
+                </a>
+              </ng-template>
+            </ng-template>-->
+          </div>
+         <!--  <div class="item-action justify-content-end">
+            <ng-template [ngIf]="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('2')> -1) && consultant.stripe_account_id!=null"> <a href="javascipt:void(0)" class="btn-link" (click)="getServiceAppoint(consultant.id,consultant.stripe_customer_id)"><span>{{'book_consultant' | translate}}</span></a> </ng-template>
+            <a href="javascipt:void(0)" class="btn-link ml-auto" (click)="openEmailMeModal(consultant.id)"><span>{{'email_me' | translate}}</span></a>
+          </div> -->
+        </div>
+        <ng-template [ngIf]="role=='user'">
+        <a href="javascipt:void(0)" class="btn-wishlist" (click)="addWishlist(consultant.id,i,1)" *ngIf="consultant.wishlist_id==null"><i class="fal fa-fw fa-heart"></i></a> <a href="javascipt:void(0)" class="btn-wishlist" *ngIf="consultant.wishlist_id" (click)="addWishlist(consultant.id,i,0)"><i class="fas fa-fw fa-heart"></i></a> </ng-template></div>
+    </div>
+  </div>
+  <div class="blog-actions"> <a href="javascript:void(0)" class="btn-action" [routerLink]="['/consultants']" tooltip="{{'consultant_view_all' | translate}}" placement="top">{{'view_more' | translate}}</a> </div>
+</section>
+
+<section class="sec-category">
+  <div class="container">
+    <div class="section-title title-alt">
+      <h1 class="title">{{'area_of_intervention' | translate}}</h1>
+      <div class="sub-title">{{'what_kind_of_psycho_looking_for' | translate}}</div>
+    </div>
+    <div class="category-wrap"> <a href="javascript:void(0)" class="item" *ngFor="let intervention of InterventionList | slice:0:9" [routerLink]="['consultants']">
+      <div class="item-title">{{intervention.name}}</div>
+      <div class="item-stats">
+        <div class="item-count">{{intervention.users}}</div>
+        <div class="item-stats-title">{{'consulted' | translate}}</div>
+      </div>
+      </a> </div>
+    <!-- <div class="category-actions">
+      <a href="javascript:void(0)" class="btn-action">View all</a>
+    </div> --> 
+  </div>
+</section>
+
+<section class="sec-what">
+  <div class="sec-what-image" [style.background-image]="'url('+home_middle_image+')'"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-7">
+        <div class="what-wrap">
+          <div class="title">{{home_middle_title}}</div>
+          <div class="sub-title">{{home_middle_sub_title}}</div>
+          <div class="text">
+            <p>{{home_middle_description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec-widget">
+  <div class="container">
+    <div class="section-title">
+      <h1 class="title">{{'online_better' | translate}}</h1>
+    </div>
+    <div class="widget-wrap">
+      <div class="item" *ngFor="let service of OnlineServiceList">
+        <div class="icon"><i class="fal fa-fw {{service.icon}}"></i></div>
+        <div class="item-title">{{service.name}}</div>
+        <div class="item-text">{{service.description}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec-testimonial">
+  <div class="container">
+    <div class="section-title">
+      <h1 class="title">{{'testimonial' | translate}}</h1>
+    </div>
+    <div class="testimonial-slider owl-carousel">
+      <div class="item" *ngFor="let testimonial of TestimonialList">
+        <div class="item-title">{{testimonial.title}}</div>
+        <div class="item-subtitle">{{testimonial.subtitle}}</div>
+        <div class="item-description">{{testimonial.description}}</div>
+        <div class="item-name">{{testimonial.name}}</div>
+        <div class="item-location">{{testimonial.profession}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec-blog">
+  <div class="container">
+    <div class="section-title">
+      <h1 class="title">{{'blog' | translate}}</h1>
+    </div>
+    <div class="blog-wrap">
+      <div class="blog-item" *ngFor="let blog of blogList">
+        <div class="item-image">
+          <img src="{{blog.image}}" alt=""/>
+        </div>
+        <div class="item-content">
+          <div class="item-date">
+            <i class="far fa-fw fa-calendar-alt"></i>
+            <span>{{blog.created_at}}</span>
+          </div>
+          <div class="item-title">{{blog.title}}</div>
+          <div class="item-text">{{blog.short_description}}</div>
+          <a href="javascript:void(0)" class="item-link" tooltip="{{'read_more_btn' | translate}}" placement="top" (click)="blogDetails(blog)">{{'read_more' | translate}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="blog-actions"> <a href="javascript:void(0)" class="btn-action" tooltip="{{'view_more_btn' | translate}}" placement="top" [routerLink]="['/blogs']">{{'view_more' | translate}}</a> </div>
+  </div>
+</section>
+<div class="modal book_appointment fade" id="book_appointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'book_an_appointment' | translate}}</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" #closeBtn>×</span> </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="control-label">{{'select_service_type' | translate}}</label>
+              <select class="form-control select2-nosearch" id="service_type_select">
+                <ng-container *ngFor="let mode of service_mode;let i=index">
+                  <option value="{{(mode=='1')?'1':(mode=='2')?'2':'3'}}">{{(mode=='1')?('chat' | translate):(mode=='2')?('voice' | translate):('video' | translate)}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="control-label">{{'select_date' | translate}}</label>
+              <input type="text" class="form-control" id="booking_date" placeholder="{{'select_date' | translate}}" name="booking_date" autocomplete="off" readonly/>
+            </div>
+          </div>
+        </div>
+        <div class="pricing-table">
+          <div class="item item-header">
+            <div class="item-service">{{'service_name' | translate}}</div>
+            <div class="item-cost">{{'cost' | translate}}</div>
+            <div class="item-mode">{{'mode' | translate}}</div>
+          </div>
+          <div class="item">
+            <div class="item-service">{{service_name}}</div>
+            <div class="item-cost">{{service_price | currency:service_currency}} /min</div>
+            <div class="item-mode">
+              <ng-container *ngFor="let mode of service_mode;let last=last"><span>{{(mode=='2')?('voice' | translate):(mode=='1')?('chat' | translate):('video' | translate)}}{{(last)?'':', '}}</span> </ng-container>
+            </div>
+          </div>
+        </div>
+        <ng-template [ngIf]="TimeSlot?.length>0">
+          <div class="form-group">
+            <label class="control-label">{{'available_time_slot' | translate}}</label>
+            <div class="radio-group">
+              <div class="custom-radio" *ngFor="let timeslot of TimeSlot">
+                <input type="radio" name="radio-01" class="custom-radio-input" (click)="getTime(timeslot.start,timeslot.end)" value="{{timeslot.start}}" />
+                <div class="custom-radio-label">{{timeslot.converted_start_time}} - {{timeslot.converted_end_time}}</div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="TimeSlot?.length>0">
+          <div class="form-group">
+            <button class="btn btn-universal" (click)="bookAppoint()">{{'book_appointment' | translate}}</button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal conversation_modal fade" id="conversation_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'star_conversation' | translate}}</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" #closeBtn>×</span> </button>
+      </div>
+      <div class="modal-body">
+        <div class="currency">{{consultant_name}}</div>
+        <div class="currency">{{consultant_email}}</div>
+        <div class="currency">{{consultant_professional_qualifications}}</div>
+        <div class="currency">{{'currency' | translate}}: {{currency}} </div>
+        <div class="price">{{'price' | translate}}: {{price}} / minute</div>
+        <div class="mode">{{'modes' | translate}}: <span>{{(instantCommuType=='2')?('voice' | translate):(instantCommuType=='1')?('chat' | translate):('video' | translate)}}</span></div>
+        <div class="description">{{'calling_msg' | translate}}</div>
+        <div class="form-group mb-0 mt-3">
+          <button class="btn-universal" (click)="this[action]()" [disabled]="calling_button_disable">{{calling_button_text | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="email_me" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'email_me' | translate}}</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" #closeBtn>×</span> </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <textarea class="form-control" placeholder="{{'enter_text' | translate}}" name="email_text" autocomplete="off" [(ngModel)]="email_text"></textarea>
+        </div>
+        <div class="form-group mb-0 mt-3">
+          <button class="btn btn-universal" (click)="sendEmail()">{{'send' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<section class="sec-dashboard" >
+	<div class="container container-bg">
+		<app-user-header [name]="'my_clients' | translate"></app-user-header>
+		<div class="row position-relative">
+			<div class="col-md-3 col-lg-2">
+				<app-user-sidebar></app-user-sidebar>
+			</div>
+			<div class="col-sm-12 col-md-9 col-lg-10">
+				<div class="card-container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="sec-myaccount-header">
+								<div class="lable-text">{{'my_clients' | translate}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="emails-list">
+								<div class="email" *ngFor="let user of appointmentList;let i=index" >
+									<div class="e-image">
+										<img src="{{user.user_image}}" alt=""  onError="this.src='assets/img/profile-icon.png'"/>
+									</div>
+									<div class="e-content">
+										<div class="e-name">{{user.user_profile_name}}</div>
+										<div class="e-text">{{user.user_personal_email}}</div>
+										<div class="e-date">{{'client_business_information' | translate}}:  {{user.user_fiscal_address}}, {{user.user_fiscal_province}}, {{user.user_fiscal_city}}, {{user.user_fiscal_zipcode}}, {{user.user_fiscal_country}}</div>
+									</div>
+									<div class="e-option">
+										<a href="javascript:void(0)" class="btn-action"><i class="fal fa-fw fa-ban"></i></a>
+										<a [routerLink]="['/account/consultant/client-notes']" [queryParams]="{id: user.user_id}" class="btn-action"><i class="fal fa-fw fa-sticky-note"></i></a>
+									</div>
+									<!-- <div class="e-option">
+										<a href="javascript:void(0)" class="btn-action" (click)="addWishlist(user.user_id,i,1)"><i class="fal fa-fw fa-heart"></i></a>
+										<a href="javascipt:void(0)" class="btn-wishlist" *ngIf="user.wishlist_id" (click)="addWishlist(user.user_id,i,0)"><i class="fas fa-fw fa-heart"></i></a>
+									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="nodata-wrap" *ngIf="appointmentList?.length==0">
+						<div class="nodata-content">
+							<div class="icon">
+								<span class="fa-stack fa-2x">
+									<i class="fal fa-fw fa-stack-2x fa-circle"></i>
+									<i class="fal fa-fw fa-stack-2x fa-slash" style="opacity: 0.5"></i>
+									<i class="fas fa-fw fa-stack-1x fa-list"></i>
+								</span>
+							</div>
+							<div class="nodata-title">{{'no_data_found' | translate}}</div>
+							<div class="nodata-text">{{'it_seems_no_data_found' | translate}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

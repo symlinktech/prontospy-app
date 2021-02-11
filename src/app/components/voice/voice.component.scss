@@ -1,0 +1,36 @@
+.remote-connect{
+    top: 212px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+app-publisher{width:100%; height: 100%;}
+app-publisher .publishing{width:100%; height: 100%;}
+.OT_mirrored.OT_root.OT_publisher.OT_fit-mode-cover.OT_audio-only{width:100% !important; height: 100% !important;}
+/*#videos {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}*/
+#subscriber {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+#publisher {
+    position: absolute;
+    width: 360px;
+    height: 240px;
+    bottom: 10px;
+    left: 10px;
+    z-index: 100;
+    border: 3px solid white;
+    border-radius: 3px;
+}

@@ -1,0 +1,504 @@
+<section class="page-banner" style="background-image: url(assets/img/banner/banner-02.jpg);">
+	<div class="container">
+		<div class="banner-content">
+			<div class="banner-title">{{'experience_psychologist' | translate}}</div>
+		</div>
+	</div>
+</section>
+<section class="sec-consultant">
+	<div class="container">
+		<div class="section-title">
+			<h1 class="title">{{'online_consultant' | translate}}</h1>
+			<!-- <div class="text">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed suscipit augue, nec elementum elit. Quisque mollis quis felis ac imperdiet. Aliquam congue viverra quam at dapibus. Mauris accumsan nisl aliquam ipsum hendrerit pharetra. Vivamus quis convallis risus. In quis dui nunc.</p>
+				<p>Quisque efficitur lacinia leo, eget ultrices lectus facilisis at. Donec rhoncus felis fringilla ullamcorper dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+			</div> -->
+		</div>
+		<div class="consultant-filter">
+			<div class="consultant-filter-actions">
+				<a href="javascript:void(0)" class="btn-filter active" tooltip="{{'filter_btn' | translate}}" placement="top">
+					<i class="far fa-fw fa-filter"></i>
+					<div class="title">{{'filter' | translate}}</div>
+					<span *ngIf="filter_search==true">{{consultantList?.length}}</span>
+				</a>
+				<!-- <div class="perpage">
+					<div class="title">{{'show' | translate}}</div>
+					<div class="form-group">
+						<select class="form-control select2-nosearch">
+							<option value="">10 per page</option>
+							<option value="">20 per page</option>
+							<option value="">30 per page</option>
+							<option value="">50 per page</option>
+							<option value="">All</option>
+						</select>
+					</div>
+				</div> -->
+			</div>
+			<div class="filter-content-wrap">
+				<a href="javascript:void(0)" class="btn-clear-filter" (click)="clearSearch()">{{'clear_all' | translate}}</a>
+				<div class="row form-row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label">{{'search' | translate}}</label>
+							<input type="text" class="form-control" placeholder="{{'search_psycho_name_word_phrase' | translate}}" [(ngModel)]="keyword"/>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label">{{'nationality' | translate}}</label>
+							<select class="form-control select2" id="nationality">
+								<option value="" selected>{{'any' | translate}}</option>
+								<option value="{{nationality.id}}" *ngFor="let nationality of NationalityList">{{nationality.nationality}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label">{{'language' | translate}}</label>
+							<select class="form-control select2-nosearch" id="language">
+								<option value="" selected>{{'any' | translate}}</option>
+								<option value="{{language.id}}" *ngFor="let language of LanguageList">{{language.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label">{{'area_of_intervention' | translate}}</label>
+							<select class="form-control select2" id="intervention_ids">
+								<option value="" selected>{{'any' | translate}}</option>
+								<option value="{{intervention.id}}" *ngFor="let intervention of InterventionList">{{intervention.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label">{{'gender' | translate}}</label>
+							<div class="checkbox-group" id="gender_checkbox">
+								<div class="custom-checkbox">
+									<input type="checkbox" name="checkbox-01" class="custom-checkbox-input" value="1" />
+									<div class="custom-checkbox-label">{{'male' | translate}}</div>
+								</div>
+								<div class="custom-checkbox ml-3">
+									<input type="checkbox" name="checkbox-01" class="custom-checkbox-input"/>
+									<div class="custom-checkbox-label">{{'female' | translate}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label">{{'online_status' | translate}}</label>
+							<div class="checkbox-group" id="status_checkbox">
+								<div class="custom-checkbox">
+									<input type="checkbox" name="checkbox-02" class="custom-checkbox-input" value="1"/>
+									<div class="custom-checkbox-label">Online</div>
+								</div>
+								<div class="custom-checkbox ml-3">
+									<input type="checkbox" name="checkbox-02" class="custom-checkbox-input" value="2"/>
+									<div class="custom-checkbox-label">Offline</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label">{{'mode' | translate}}</label>
+							<div class="checkbox-group">
+								<div class="custom-checkbox" id="mode_checkbox">
+									<input type="checkbox" name="checkbox-02" class="custom-checkbox-input" value="1"/>
+									<div class="custom-checkbox-label">{{'chat' | translate}}</div>
+								</div>
+								<div class="custom-checkbox ml-3">
+									<input type="checkbox" name="checkbox-02" class="custom-checkbox-input" value="2"/>
+									<div class="custom-checkbox-label">{{'voice' | translate}}</div>
+								</div>
+								<div class="custom-checkbox ml-3">
+									<input type="checkbox" name="checkbox-02" class="custom-checkbox-input" value="2"/>
+									<div class="custom-checkbox-label">{{'video' | translate}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">{{'therapeutic_approach' | translate}}</label>
+							<select id="therapeutic_ids" class="form-control select2" name="therapeutic_approach">	<option value="">{{'any' | translate}}</option>
+								<ng-container *ngFor="let therapeutic of SpecializationList;let i=index;">
+									<ng-template [ngIf]="therapeutic.type=='1'">
+										<ng-template  [ngIf]="therapeutic.sub?.length>0" [ngIfElse]
+											="optionValue">
+											<optgroup label="{{therapeutic.name}}" >
+												<option value="{{data.id}}" attr.data-id="{{therapeutic.id}}" *ngFor="let data of therapeutic.sub">{{data.name}}</option>
+											</optgroup>
+										</ng-template>
+										<ng-template #optionValue>
+											<option value="{{therapeutic.id}}" >{{therapeutic.name}}</option>
+										</ng-template>
+									</ng-template>
+								</ng-container>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">{{'mental_neuro_disorder' | translate}}</label>
+							<select id="mental_ids" class="form-control select2" name="mental_disorder">
+								<option value="">{{'any' | translate}}</option>
+								<ng-container *ngFor="let mental of SpecializationList;let i=index;">
+									<ng-template [ngIf]="mental.type=='2'">
+										<ng-template  [ngIf]="mental.sub?.length>0" [ngIfElse]="optionValue1">
+											<optgroup label="{{mental.name}}" >
+												<option value="{{data.id}}" attr.data-id="{{mental.id}}" *ngFor="let data of mental.sub">{{data.name}}</option>
+											</optgroup>
+										</ng-template>
+										<ng-template #optionValue1>
+											<option value="{{mental.id}}" >{{mental.name}}</option>
+										</ng-template>
+									</ng-template>
+								</ng-container>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">{{'psychological_problems' | translate}}</label>
+							<select id="psycho_ids" class="form-control select2" name="psycho_problem">
+								<option value="">{{'any' | translate}}</option>
+								<ng-container *ngFor="let psychological of SpecializationList;let i=index;">
+									<ng-template [ngIf]="psychological.type=='3'">
+										<ng-template  [ngIf]="psychological.sub?.length>0" [ngIfElse]="optionValue2">
+											<optgroup label="{{psychological.name}}">
+												<option value="{{data.id}}" attr.data-id="{{psychological.id}}" *ngFor="let data of psychological.sub">{{data.name}}</option>
+											</optgroup>
+										</ng-template>
+										<ng-template #optionValue2>
+											<option value="{{psychological.id}}">{{psychological.name}}</option>
+										</ng-template>
+									</ng-template>
+								</ng-container>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">{{'other_topics' | translate}}</label>
+							<select id="others_ids" class="form-control select2" name="other_topics">
+								<option value="">{{'any' | translate}}</option>
+								<ng-container *ngFor="let others of SpecializationList;let i=index;">
+									<ng-template [ngIf]="others.type=='4'">
+										<ng-template  [ngIf]="others.sub?.length>0" [ngIfElse]="optionValue3">
+											<optgroup label="{{others.name}}" >
+												<option value="{{data.id}}" attr.data-id="{{others.id}}" *ngFor="let data of others.sub">{{data.name}}</option>
+											</optgroup>
+										</ng-template>
+										<ng-template #optionValue3>
+											<option value="{{others.id}}" >{{others.name}}</option>
+										</ng-template>
+									</ng-template>
+								</ng-container>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">{{'sort_by' | translate}}</label>
+							<select id="sorting" class="form-control select2-nosearch" name="sorting">
+								<option value="" selected disabled>{{'sort_by' | translate}}</option>
+								<option value="naz">Name (A - Z)</option>
+								<option value="nza">Name (Z - A)</option>
+								<option value="plh">Price (Low - High)</option>
+								<option value="phl">Price (High - Low)</option>
+								<option value="rlh">Rating (Low - High)</option>
+								<option value="rhl">Rating (High - Low)</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row form-row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<button class="btn-universal" (click)="searchConsultant()" tooltip="{{'filter_search_btn' | translate}}" placement="top">{{'search' | translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="consultant-wrap" *ngIf="consultantList?.length>0">
+			<div class="item {{(consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1) && consultant.appointment_id==null && consultant.active_status==1)?'online':((consultant.user_consultant_services && consultant.appointment_id && consultant.user_consultant_services.indexOf('1')> -1) || (consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1)) && consultant.active_status=='3')?'busy':''}}" *ngFor="let consultant of consultantList;let i=index">
+				<div class="item-stats">
+					<div class="item-image" (click)="navigatePage(consultant)">
+						<img src="{{consultant.image}}" alt="" onError="this.src='assets/img/profile-icon.png'" />
+					</div>
+					<div class="rating-wrap">
+						<div class="rating">
+							<div class="back">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+							<div class="front" [ngStyle]="{'width':(consultant.rating*20) + '%'}">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+						</div>
+						<div class="average-rating" *ngIf="consultant.rating">
+							<span>{{consultant.rating}}</span>
+						</div>
+					</div>
+					<div class="review-count">
+						<div class="title">{{'based_on' | translate}}</div>
+						<div class="count">{{consultant.review}}</div>
+					</div>
+					<div class="online-status">
+						<div class="status" *ngIf="(consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1) && consultant.appointment_id==null && consultant.active_status==1)">
+							<div class="icon"></div>
+							<div class="text">Online</div>
+						</div>
+						<div class="status" *ngIf="consultant.active_status==2">
+							<div class="icon"></div>
+							<div class="text">Offline</div>
+						</div>
+						<div class="status" *ngIf="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1) && consultant.active_status=='3'">
+							<div class="icon"></div>
+							<div class="text">Busy</div>
+						</div>
+					</div>
+				</div>
+				<div class="item-info">
+					<div class="item-name" (click)="navigatePage(consultant)">{{consultant.profile_name}}</div>
+					<div class="item-designation" (click)="navigatePage(consultant)">{{consultant.professional_qualifications}}</div>
+					<div class="item-intervention">
+						<!-- <div class="intervention-label">Intervention:</div> -->
+						<div class="intervention-data">{{consultant.interventions}}</div>
+					</div>
+					<div class="item-nationality" (click)="navigatePage(consultant)" *ngIf="consultant.nationality">
+						<!-- <div class="nationality-label">Nationality:</div> -->
+						<div class="nationality-data">
+							<div class="nationality-flag"><img src="assets/img/flags/4x3/{{consultant.nationality_code | lowercase}}.svg" alt=""/></div>
+							<div class="nationality-name">{{consultant.nationality}}</div>
+						</div>
+					</div>
+					<div class="item-meta" *ngIf="consultant.price || consultant.language_names">
+						<div class="item-rate" (click)="navigatePage(consultant)">{{consultant.currency}} {{consultant.price}}<small>/min</small></div>
+						<div class="item-language" (click)="navigatePage(consultant)" *ngIf="consultant.language_names">
+							<div class="language-icon"><i class="far fa-fw fa-language"></i></div>
+							<div class="language-name">{{consultant.language_names}}</div>
+						</div>
+					</div>
+					<div class="item-description" *ngIf="consultant.biography_short_description">{{consultant.biography_short_description}}</div>
+					<div class="item-action" *ngIf="role!='consultant'">
+						<ng-template [ngIf]="(consultant.account_info_completed==1 && 
+						consultant.biography_info_completed==1 && 
+						consultant.fiscal_info_completed==1 && 
+						consultant.insurance_info_completed==1 && 
+						consultant.intervention_info_completed==1 && 
+						consultant.language_info_completed==1 && 
+						consultant.membership_info_completed==1 && 
+						consultant.personal_info_completed==1 && 
+						consultant.service_offered_info_completed==1)" [ngIfElse]="profile_incomplete">
+							<ng-template [ngIf]="consultant.active_status==1 && consultant.next_appointment_status==2">
+								<ng-template [ngIf]="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('1')> -1) &&  consultant.active_status==1 && consultant.stripe_account_id!=null">
+									<ng-template [ngIf]="consultant.mode.indexOf('2')> -1">
+										<a href="javascipt:void(0)" class="btn-action {{(consultant.mode.indexOf('1')== -1)?'action-full':''}}" (click)="startConversation('2',consultant)" tooltip="{{'consultant_voice_btn' | translate}}" placement="top">
+											<i class="fal fa-fw fa-phone fa-flip-horizontal"></i>
+											<span>{{'voice' | translate}}</span>
+										</a>
+									</ng-template>
+									<ng-template [ngIf]="consultant.mode.indexOf('1')> -1">
+										<a href="javascipt:void(0)" class="btn-action {{(consultant.mode.indexOf('2')== -1)?'action-full':''}}" (click)="startConversation('1',consultant)" tooltip="{{'consultant_chat_btn' | translate}}" placement="top">
+											<i class="fal fa-fw fa-comments-alt"></i>
+											<span>{{'chat' | translate}}</span>
+										</a>
+									</ng-template>
+									<ng-template [ngIf]="consultant.mode.indexOf('3')> -1">
+										<a href="javascipt:void(0)" class="btn-action action-full" (click)="startConversation('3',consultant)" tooltip="{{'consultant_video_btn' | translate}}" placement="top">
+											<i class="fal fa-fw fa-video"></i>
+											<span>{{'video' | translate}}</span>
+										</a>
+									</ng-template>
+								</ng-template>
+							</ng-template>
+						</ng-template>
+						<ng-template #profile_incomplete>
+							<div class="item-info">
+								<div class="item-description">{{(consultant.account_info_completed==2)?('account_info'| translate):''}} {{(consultant.biography_info_completed==2)?('biography_info'| translate):''}} {{(consultant.fiscal_info_completed==2)?('fiscal_info'| translate):''}} {{(consultant.insurance_info_completed==2)?('insurance_info'| translate):''}} {{(consultant.membership_info_completed==2)?('membership_info'| translate):''}} {{(consultant.personal_info_completed==2)?('membership_info'| translate):''}}
+									{{(consultant.service_offered_info_completed==2)?('services_offered_info'| translate):''}}
+									{{ 'is_incomplete' | translate}}
+								</div>
+								
+							</div>
+						</ng-template>
+						<ng-template [ngIf]="consultant.daily_schedule_info_completed==1" [ngIfElse]="schedule_incomplete">
+			              <ng-template [ngIf]="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('2')> -1) && consultant.stripe_account_id!=null">  
+			                <a href="javascipt:void(0)" class="btn-action action-full btn-action-alt" (click)="getServiceAppoint(consultant.id,consultant.stripe_customer_id)" tooltip="{{'consultant_booking_btn' | translate}}" placement="top">
+			                  <i class="fal fa-fw fa-calendar-alt"></i>
+			                  <span>{{'book_consultant' | translate}}</span>
+			                </a>
+			              </ng-template>
+			            </ng-template>
+			            <ng-template #schedule_incomplete>
+			               <div class="item-info">
+			                <div class="item-description">{{(consultant.daily_schedule_info_completed==2)?('daily_schedule'| translate):''}}
+			                  {{ 'is_incomplete' | translate}}
+			                </div>
+			            </div>
+			            </ng-template>
+			            <!--<ng-template [ngIf]="consultant.daily_schedule_info_completed==1">
+			              <ng-template [ngIf]="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('2')> -1) && consultant.stripe_account_id!=null && consultant.active_status=='2'">  
+			                <a href="javascipt:void(0)" class="btn-action action-full" (click)="getServiceAppoint(consultant.id,consultant.stripe_customer_id)">
+			                  <i class="fal fa-fw fa-calendar-alt"></i>
+			                  <span>{{'book_consultant' | translate}}</span>
+			                </a>
+			              </ng-template>
+			            </ng-template>-->
+					</div>
+					<!-- <div class="item-action justify-content-end">
+						<ng-template [ngIf]="consultant.user_consultant_services && (consultant.user_consultant_services.indexOf('2')> -1) && consultant.stripe_account_id!=null">	
+							<a href="javascipt:void(0)" class="btn-link" (click)="getServiceAppoint(consultant.id,consultant.stripe_customer_id)">
+								<i class="fal fa-fw fa-calendar-check"></i>
+								<span>{{'book_consultant' | translate}}</span>
+							</a>
+						</ng-template>
+						<a href="javascipt:void(0)" class="btn-link ml-auto" (click)="openEmailMeModal(consultant.id)">
+							<span>{{'email_me' | translate}}</span>
+						</a>
+					</div> -->
+				</div>
+				<ng-template [ngIf]="role=='user'">
+					<a href="javascipt:void(0)" class="btn-wishlist" (click)="addWishlist(consultant.id,i,1)" *ngIf="consultant.wishlist_id==null"><i class="fal fa-fw fa-heart"></i></a>
+					<a href="javascipt:void(0)" class="btn-wishlist" *ngIf="consultant.wishlist_id" (click)="addWishlist(consultant.id,i,0)"><i class="fas fa-fw fa-heart"></i></a>
+				</ng-template>
+			</div>
+		</div>
+		<div class="nodata-wrap" *ngIf="consultantList?.length==0">
+			<div class="nodata-content">
+				<div class="icon">
+					<span class="fa-stack fa-2x">
+						<i class="fal fa-fw fa-stack-2x fa-circle"></i>
+						<i class="fal fa-fw fa-stack-2x fa-slash" style="opacity: 0.5"></i>
+						<i class="fas fa-fw fa-stack-1x fa-list"></i>
+					</span>
+				</div>
+				<div class="nodata-title">{{'no_data_found' | translate}}</div>
+				<div class="nodata-text">{{'it_seems_no_data_found' | translate}}</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal book_appointment fade" id="book_appointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">{{'book_an_appointment' | translate}}</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true" #closeBtn>×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label">{{'select_service_type' | translate}}</label>
+							<select class="form-control select2" id="service_type_select">
+								<ng-container *ngFor="let mode of service_mode;let i=index">
+									<option value="{{(mode=='1')?'1':(mode=='2')?'2':'3'}}">{{(mode=='1')?('chat' | translate):(mode=='2')?('voice' | translate):('video' | translate)}}</option>
+								</ng-container>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label">{{'select_date' | translate}}</label>
+							<input type="text" class="form-control" id="booking_date" placeholder="{{'select_date' | translate}}" name="booking_date" autocomplete="off" readonly/>
+						</div>
+					</div>
+				</div>
+				<div class="pricing-table">
+					<div class="item item-header">
+						<div class="item-service">{{'service_name' | translate}}</div>
+						<div class="item-cost">{{'cost' | translate}}</div>
+						<div class="item-mode">{{'mode' | translate}}</div>
+					</div>
+					<div class="item">
+						<div class="item-service">{{service_name}}</div>
+						<div class="item-cost">{{service_price}} {{service_currency}} /min</div>
+						<div class="item-mode">
+							<ng-container *ngFor="let mode of service_mode;let last=last">
+								<span>{{(mode=='2')?('voice' | translate):(mode=='1')?('chat' | translate):('video' | translate)}}{{(last)?'':', '}}</span>
+							</ng-container>
+						</div>
+					</div>
+				</div>
+				<ng-template [ngIf]="TimeSlot?.length>0">
+					<div class="form-group">
+						<label class="control-label">{{'available_time_slot' | translate}}</label>
+						<div class="radio-group">
+							<div class="custom-radio" *ngFor="let timeslot of TimeSlot">
+								<input type="radio" name="radio-01" class="custom-radio-input" (click)="getTime(timeslot.start,timeslot.end)" value="{{timeslot.start}}" />
+								<div class="custom-radio-label">{{timeslot.converted_start_time}} - {{timeslot.converted_end_time}}</div>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+				<ng-template [ngIf]="TimeSlot?.length>0">
+					<div class="form-group">
+						<button class="btn btn-universal" (click)="bookAppoint()">{{'book_appointment' | translate}}</button>
+					</div>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal conversation_modal fade" id="conversation_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">{{'star_conversation' | translate}}</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" #closeBtn>×</span> </button>
+			</div>
+			<div class="modal-body">
+				<div class="name">{{consultant_name}}</div>
+				<div class="data">{{'email' | translate}}:<span>{{consultant_email}}</span></div>
+				<div class="data">{{'profession' | translate}}:<span>{{consultant_professional_qualifications}}</span></div>
+				<div class="data">{{'currency' | translate}}: <span>{{currency}}</span></div>
+				<div class="data">{{'price' | translate}}: <span>{{price}} / min</span></div>
+				<div class="data">{{'modes' | translate}}: <span>{{(instantCommuType=='2')?('voice' | translate):(instantCommuType=='1')?('chat' | translate):('video' | translate)}}</span></div>
+				<div class="description">{{'calling_msg' | translate}}</div>
+				<div class="form-group mb-0 mt-3">
+					<button class="btn-universal" (click)="this[action]()" [disabled]="calling_button_disable">{{calling_button_text | translate}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="email_me" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">{{'email_me' | translate}}</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" #closeBtn>×</span> </button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<textarea class="form-control" placeholder="{{'enter_text' | translate}}" name="email_text" autocomplete="off" [(ngModel)]="email_text"></textarea>
+				</div>
+				<div class="form-group mb-0 mt-3">
+					<button class="btn btn-universal" (click)="sendEmail()">{{'send' | translate}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class=loader *ngIf="showspinner==true">
+  <div class="preloader"><span></span><span></span><span></span><span></span><span></span></div>
+</div>

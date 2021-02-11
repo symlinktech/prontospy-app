@@ -1,0 +1,72 @@
+<!-- <ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/myaccount']">Personal Info</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/fiscal-info']">Fiscal Info</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/payment-info']">Payment Info</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account-info']">Account Info</a>
+  </li>
+  <li class="nav-item" *ngIf="role=='consultant'">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/member-info']">Membership Info</a>
+  </li>
+  <li class="nav-item" *ngIf="role=='consultant'">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/insurance-info']">Insurance Info</a>
+  </li>
+  <li class="nav-item" *ngIf="role=='consultant'">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/biography-info']">Biography Info</a>
+  </li>
+  <li class="nav-item" *ngIf="role=='consultant'">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/intervention-specialization']">Intervention & Specilization Info</a>
+  </li>
+  <li class="nav-item" *ngIf="role=='consultant'">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/language-info']">Language Info</a>
+  </li>
+  <li class="nav-item" *ngIf="role=='consultant'">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/service-info']">Service Offered Info</a>
+  </li>
+  <li class="nav-item" *ngIf="role=='consultant'">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/schedule']">Daily Schedule</a>
+  </li>
+</ul> -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-nav">
+      <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/personal-info']" *ngIf="role=='consultant'">{{'personal_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/client/myprofile/personal-info']" *ngIf="role=='user'">{{'personal_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/fiscal-info']" *ngIf="role=='consultant'">{{'fiscal_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/client/myprofile/fiscal-info']" *ngIf="role=='user'">{{'fiscal_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/payment-info']" *ngIf="role=='consultant'">{{'payment_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/client/myprofile/payment-info']" *ngIf="role=='user'">{{'payment_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/account-info']" *ngIf="role=='consultant'">{{'account_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/client/myprofile/account-info']" *ngIf="role=='user'">{{'account_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/member-info']" *ngIf="role=='consultant'">{{'membership_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/insurance-info']" *ngIf="role=='consultant'">{{'insurance_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/biography-info']" *ngIf="role=='consultant'">{{'biography_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/intervention-specialization']" *ngIf="role=='consultant'">{{'intervention_specialization_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/language-info']" *ngIf="role=='consultant'">{{'language_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/service-info']" *ngIf="role=='consultant'">{{'services_offered_info' | translate}}</a>
+
+        <a class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="javascript:void(0)" [routerLink]="['/account/consultant/myprofile/schedule']" *ngIf="role=='consultant'">{{'daily_schedule' | translate}}</a>
+        </nav>
+    </div>
+  </div>
+</div>

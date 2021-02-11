@@ -1,0 +1,53 @@
+<section class="sec-dashboard" >
+	<div class="container container-bg">
+		<app-user-header [name]="'email' | translate"></app-user-header>
+		<div class="row position-relative">
+			<div class="col-md-3 col-lg-2">
+				<app-user-sidebar></app-user-sidebar>
+			</div>
+			<div class="col-sm-12 col-md-9 col-lg-10">
+				<div class="card-container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="sec-myaccount-header">
+								<div class="lable-text">{{'email' | translate}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="emails-list">
+								<div class="email" *ngFor="let email of EmailList;let i=index" >
+									<div class="e-image" (click)="details(email.id,email.receiver_id,email.sender_id)">
+										<img src="{{(user_id==email.sender_id)?email.receiver_image:email.sender_image}}" alt=""  onError="this.src='assets/img/profile-icon.png'"/>
+									</div>
+									<div class="e-content" (click)="details(email.id,email.receiver_id,email.sender_id)">
+										<div class="e-name">{{(user_id==email.sender_id)?email.receiver_name:email.sender_name}}</div>
+										<div class="e-text">{{email.description}}</div>
+										<div class="e-date">{{email.created_at | date:'h:mm a'}} | {{email.created_at | date:'MMM'}} {{email.created_at | date:'dd'}}</div>
+									</div>
+									<div class="e-option">
+										<a href="javascript:void(0)" class="btn-action" (click)="removeEmail(email.id,i)"><i class="fal fa-fw fa-trash-alt"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="nodata-wrap" *ngIf="EmailList?.length==0">
+						<div class="nodata-content">
+							<div class="icon">
+								<span class="fa-stack fa-2x">
+									<i class="fal fa-fw fa-stack-2x fa-circle"></i>
+									<i class="fal fa-fw fa-stack-2x fa-slash" style="opacity: 0.5"></i>
+									<i class="fas fa-fw fa-stack-1x fa-list"></i>
+								</span>
+							</div>
+							<div class="nodata-title">{{'no_data_found' | translate}}</div>
+							<div class="nodata-text">{{'it_seems_no_data_found' | translate}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,85 @@
+<section class="sec-dashboard" >
+  <div class="container container-bg">
+    <app-user-header [name]="'service_offered' | translate"></app-user-header>
+    <div class="row position-relative">
+      <div class="col-md-3 col-lg-2">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="card-container">
+          <app-user-tab></app-user-tab>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header">
+                <div class="lable-text">{{'service_offered' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div id="service_form">
+            <div class="service_list" id="#1">
+              <ng-template [ngIf]="consultantService?.length==0">
+                <div class="form-row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="control-label">{{'service' | translate}}</label>
+                      <a href="javascript:void(0)" class="btn-action service_del float-right" data-delvalue="#1"><i class="fal fa-fw fa-trash-alt"></i>
+                    </a>
+                      <select id="services_offered" class="form-control select2-nosearch" name="services">
+                        <option value="{{service.id}}" *ngFor="let service of ServiceOfferList">{{service.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">{{'mode' | translate}}</label>
+                      <select id="services_mode" class="form-control select2-nosearch" name="service_mode" multiple>
+                        <option value="1">{{'chat' | translate}}</option>
+                        <option value="2">{{'audio' | translate}}</option>
+                        <option value="3">{{'video' | translate}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="form-group">
+                      <label class="control-label">{{'currency' | translate}}</label>
+                      <select id="services_currrency" class="form-control select2" name="service_currrency">
+                        <option value="{{currency.code}}" *ngFor="let currency of CurrencyList">{{currency.code}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="form-group">
+                      <label class="control-label">{{'price' | translate}} /{{'minute' | translate}}</label>
+                      <input type="text" class="form-control" placeholder="{{'price' | translate}}"  name="service_price" id="service_price">
+                      <input type="hidden" class="form-control" placeholder="{{'duration' | translate}}"  name="service_duration" id="service_duration" value="1">
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <div class="row" *ngIf="ServiceOfferList?.length!=formAppendCount">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="lable-text ml-auto">
+                  <button class="btn-universal" (click)="addServiceForm()">{{'add_more' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header border-0 mt-3">
+                <div class="lable-text ml-auto">
+                  <button class="btn-universal" (click)="updateServiceOfferedInfo()">{{'save_changes' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

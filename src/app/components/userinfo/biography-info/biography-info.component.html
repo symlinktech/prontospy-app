@@ -1,0 +1,45 @@
+<section class="sec-dashboard" >
+  <div class="container container-bg">
+    <app-user-header [name]="'biography_information' | translate"></app-user-header>
+    <div class="row position-relative">
+      <div class="col-md-3 col-lg-2">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="card-container">
+          <app-user-tab></app-user-tab>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header">
+                <div class="lable-text">{{'biography_information' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label">{{'short_description' | translate}} (Max 200 character)</label>
+                <textarea class="form-control" placeholder="{{'short_description' | translate}}"  name="biography_short_description" [(ngModel)]="biography_short_description" maxlength="200"></textarea>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label">{{'long_description' | translate}} (Max 400 character)</label>
+                <textarea class="form-control" placeholder="{{'long_description' | translate}}"  name="biography_long_description" [(ngModel)]="biography_long_description" maxlength="400"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header border-0 mt-3">
+                <div class="lable-text ml-auto">
+                  <button class="btn-universal" (click)="updateBiographyInfo()">{{'save_changes' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

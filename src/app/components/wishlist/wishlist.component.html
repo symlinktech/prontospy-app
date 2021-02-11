@@ -1,0 +1,76 @@
+<section class="sec-dashboard" >
+	<div class="container container-bg">
+		<app-user-header [name]="name | translate"></app-user-header>
+		<div class="row position-relative">
+			<div class="col-md-3 col-lg-2">
+				<app-user-sidebar></app-user-sidebar>
+			</div>
+			<div class="col-sm-12 col-md-9 col-lg-10">
+				<div class="card-container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="sec-myaccount-header">
+								<div class="lable-text">{{'wishlist' | translate}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="wishlist" *ngIf="Wishlist?.length>0">
+								<div class="item" *ngFor="let item of Wishlist;let i=index">
+									<div class="item-image" (click)="navigatePage(item)">
+										<img src="{{item.image}}" alt="" onError="this.src='assets/img/profile-icon.png'"/>
+									</div>
+									<div class="item-content" (click)="navigatePage(item)">
+										<div class="item-name">{{item.profile_name}}</div>
+										<div class="item-role">{{item.interventions}}</div>
+										<div class="item-language">{{item.language_names}}</div>
+									</div>
+									<a href="javascript:void(0)" class="btn-remove" (click)="removeWishlist(item.id,i)"><i class="fal fa-minus-circle"></i><span>{{'remove' | translate}}</span></a>
+								</div>
+							</div>
+							<div class="nodata-wrap" *ngIf="Wishlist?.length==0">
+								<div class="nodata-content">
+									<div class="icon">
+										<span class="fa-stack fa-2x">
+											<i class="fal fa-fw fa-stack-2x fa-circle"></i>
+											<i class="fal fa-fw fa-stack-2x fa-slash" style="opacity: 0.5"></i>
+											<i class="fas fa-fw fa-stack-1x fa-list"></i>
+										</span>
+									</div>
+									<div class="nodata-title">{{'no_data_found' | translate}}</div>
+									<div class="nodata-text">{{'it_seems_no_data_found' | translate}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<!--<div class="consultant-details">
+					<div class="consultant-details-panel">
+						<div class="consultant-reviews">
+							<div class="title">{{'wishlist' | translate}}</div>
+							<div class="review-list">
+								<div class="item" *ngFor="let item of Wishlist;let i=index" (click)="navigatePage(item)">
+									<div class="item-image">
+										<img src="{{item.image}}" alt="" onError="this.src='assets/img/profile-icon.png'"/>
+									</div>
+									<div class="item-content">
+										<div class="item-date">29 May 2020</div>
+										<div class="item-name">{{item.profile_name}}</div>
+										<div class="item-comments">{{item.interventions}}</div>
+										 <div class="item-comments">{{item.biography_long_description}}</div>
+										<div class="item-comments">{{item.language_names}}</div> 
+									</div>
+									<button class="btn btn-info" (click)="removeWishlist(item.id,i)">{{'remove' | translate}}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>-->
+				
+				
+			</div>
+		</div>
+	</div>
+</section>

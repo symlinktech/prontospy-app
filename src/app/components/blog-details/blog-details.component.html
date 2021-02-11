@@ -1,0 +1,21 @@
+<!-- <section class="page-banner" style="background-image: url(assets/img/banner/banner-02.jpg);">
+	<div class="container">
+		<div class="banner-content">
+			<div class="banner-title">{{'blog' | translate}}</div>
+		</div>
+	</div>
+</section> -->
+<section class="sec-blog-details">
+	<div class="container">
+		<div class="blog-details">
+			<div class="blog-image">
+				<div class="blog-date"><span>{{BlogDetails.created_at | date:'dd'}}</span>{{BlogDetails.created_at | date:'MMM, yy'}}</div>
+				<img src="{{BlogDetails.image}}" alt="">
+			</div>
+			<div class="blog-details-wrap">
+				<div class="blog-title">{{BlogDetails.title}}</div>
+				<div class="blog-content" [innerHTML]="BlogDetails.long_description"></div>
+			</div>
+		</div>
+	</div>
+</section>

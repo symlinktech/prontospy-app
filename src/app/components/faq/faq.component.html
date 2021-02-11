@@ -1,0 +1,27 @@
+<section class="page-banner" style="background-image: url(assets/img/banner/banner-02.jpg);">
+	<div class="container">
+		<div class="banner-content">
+			<div class="banner-title">Experience Psychologist</div>
+		</div>
+	</div>
+</section>
+<section class="sec-faq">
+	<div class="container">
+		<div class="section-title">
+			<h1 class="title">{{'how_can_we_help' | translate}}</h1>
+		</div>
+		<div class="sec-custom-accrodion">
+			<div class="accrodion-item" *ngFor="let faq of FaqData;let lastItem=last">
+				<div class="accrodion-item-header">
+					<button class="custom-accrodion-btn" type="button" (click)="toggle()">
+						{{faq.question}}
+					</button>
+				</div>
+				<div class="accrodion-item-body">
+					<p>{{faq.answer}}</p>
+				</div>
+				{{lastItem?toggle():''}}
+			</div>
+		</div>
+	</div>
+</section>

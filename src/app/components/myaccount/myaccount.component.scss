@@ -1,0 +1,20 @@
+.phonecode{margin: 0;border-left: 1px solid #fff;display: flex;}
+.phonecode .dropdown-toggle{display: flex;margin: auto 0;padding: 6px 10px !important;width: 100%;border: 1px solid #ced4da;min-height: 38px;align-items: center;overflow: hidden;}
+.phonecode .dropdown-toggle:after{color:#fff;margin:0;font-size:10px}
+.phonecode .dropdown-toggle .flag{display:block;width:20px;height:15px;margin:auto 0;margin-right:8px;line-height:1;overflow:hidden}
+.phonecode .dropdown-toggle .flag img{width:100%;height:100%;object-fit:cover;object-position:center}
+.phonecode .dropdown-toggle .phonecode-name{display: block;line-height: 15px;color: var(--thirdColor);font-size: 12px;font-weight: 400;letter-spacing: -0.5px;}
+.phonecode .dropdown-menu{margin:0;border:0;border-radius:0;box-shadow:rgba(0,0,0,0.2) 0 2px 10px;left:auto!important;right:0;transform:translate(0%,50px)!important;min-width: 0; max-width: 100%;}
+.phonecode .dropdown-menu.show{transform:translate(0,0)!important}
+.phonecode .dropdown-menu .input-search{padding: 0 5px;margin: 0 0 5px;}
+.phonecode .dropdown-menu .input-search .form-control{height: 30px;min-height: 30px;border-color: #d1d3e2 !important;}
+.phonecode .dropdown-menu .dropdown-menu-wrap{max-height: 200px;overflow: auto;}
+.phonecode .dropdown-menu .dropdown-menu-wrap::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.1);box-shadow:inset 0 0 6px rgba(0,0,0,0.1);background-color:#fff}
+.phonecode .dropdown-menu .dropdown-menu-wrap::-webkit-scrollbar{width:5px;height:5px;background-color:#fff}
+.phonecode .dropdown-menu .dropdown-menu-wrap::-webkit-scrollbar-thumb{background-color:var(--thirdColor)}
+
+.phonecode .dropdown-menu .dropdown-item{display:flex;padding:5px 10px;color:var(--secondaryColor); white-space: normal; }
+.phonecode .dropdown-menu .dropdown-item .flag{display:block;width:20px;height:15px;margin:auto 0;margin-right:8px;line-height:1;overflow:hidden}
+.phonecode .dropdown-menu .dropdown-item .flag img{width:100%;height:100%;object-fit:cover;object-position:center}
+.phonecode .dropdown-menu .dropdown-item .phonecode-name{display:block;line-height:15px;font-size: 11px;font-weight: 500;letter-spacing: -0.5px;}
+.phonecode .dropdown-menu .dropdown-item:focus,header .header-top-content .phonecode .dropdown-menu .dropdown-item:hover,.phonecode .dropdown-menu .dropdown-item:active{background:var(--primaryColor);color:#fff}

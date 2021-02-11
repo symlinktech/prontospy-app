@@ -1,0 +1,127 @@
+<section class="sec-voice-chat-page">
+	<div class="container">
+			<div class="video-chat-wrap">
+				<div class="message-type">{{'video' | translate}}</div>
+				<div class="video-chat-item"  id="videos" #videos>
+					<div class="item-image" *ngIf="session">
+						<app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session" [media]="media"></app-subscriber>
+					</div>
+					<div class="item-content" *ngIf="session">
+						<app-publisher [session]="session" [media]="media"></app-publisher>
+					</div>
+					<div class="item-info" >
+						<a href="javascript:void(0)" class="info-item" (click)="disconnectFun('normal')">
+							<i class="far fa-fw fa-phone-slash"></i>
+							<span>{{'disconnect' | translate}}</span>
+						</a>
+						<a href="javascript:void(0)" class="info-item" (click)="openFullscreen()">
+							<i class="far fa-fw fa-expand"></i>
+							<span>Fullscreen</span>
+						</a> 
+					</div>
+				</div>
+				 <div class="video-chat-only-item message-div">
+					<div class="video-message-container">
+						<div class="message-content-panel">
+							<div class="message-header">
+								<div class="message-user">
+									<div class="title" title="{{(user_id==loginId)?consultant_profile_name:user_profile_name}}">{{(user_id==loginId)?consultant_profile_name:user_profile_name}}</div>
+									<div class="status online">Online</div>
+									<div class="time">{{hDisplay}}:{{mDisplay}}:{{sDisplay}}</div>
+								</div>
+							</div>
+							<div class="message-body">
+								<div class="comment-list" id="chatElement" #chatElement>
+									<ng-container *ngFor="let msg of messageList">
+										<ng-template [ngIf]="msg.files==null">
+											<div class="comment {{(msg.sender_id==loginId)?'right':''}}">
+												<div class="img-container">
+													<img src="{{baseUrl+msg.image}}" alt="" onError="this.src='assets/img/profile-icon.png'"/>
+												</div>
+												<div class="comment-content">
+													<div class="comment-header">
+														<div class="user-name">{{msg.profile_name}}</div>
+														<div class="comment-time">{{msg.created_at | date:'hh:mm a'}}</div>
+													</div>
+													<div class="comment-body">
+														<div class="comment-text-wrap">
+															<div class="comment-text">{{msg.comment}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</ng-template>
+										<ng-template [ngIf]="msg.files?.length>0">
+											<div class="comment {{(msg.sender_id==loginId)?'right':''}}">
+												<div class="img-container">
+													<img src="{{baseUrl+msg.image}}" alt="" onError="this.src='assets/img/profile-icon.png'"/>
+												</div>
+												<div class="comment-content">
+													<div class="comment-header">
+														<div class="user-name">{{msg.profile_name}}</div>
+														<div class="comment-time">{{msg.created_at | date:'hh:mm a'}}</div>
+													</div>
+													<div class="comment-footer" *ngIf="msg.files?.length>0">
+														<div class="comment-files">
+															<ng-container *ngFor="let item of msg.files">
+																	<div class="file" title="{{item.name}}">
+																		<div class="file-icon"><i class="fad fa-fw fa-swap-opacity fa-file-image"></i></div>
+																		<div class="file-info">
+																			<div class="file-name">{{item.name}}</div>
+																		</div>
+																		<div class="file-action" *ngIf="item.file_exist==true">
+																			<a href="{{baseUrl+item.file}}" target="_blank" class="btn-action">Download</a>
+																		</div>
+																	</div>
+															</ng-container>
+														</div>
+													</div>
+												</div>
+											</div>
+										</ng-template>
+									</ng-container>
+								</div>          
+							</div>
+							<div class="message-footer">
+								<div class="btn-attachment">
+								<a href="javascript:void(0)" class="btn-send" (click)="manageAttachment('show')"><i class="far fa-fw fa-paperclip"></i></a>
+								</div>
+								<div class="message-input">
+									<textarea class="form-control" rows="1"  name="chatMessage"  class="form-control" [(ngModel)]="comment" (keyup.enter)="sendMessage()"></textarea>
+								</div>
+								<a href="javascript:void(0)" class="btn-send" (click)="sendMessage()"><i class="fas fa-fw fa-paper-plane"></i></a>
+							</div>
+							<div class="message-file-upload">
+								<div class="file-upload-header">
+									<div class="title">Attach File(s)</div>
+									<a href="javascript:void(0)" class="btn-close" (click)="manageAttachment('hide')"><i class="fal fa-fw fa-times"></i></a>
+								</div>
+								<div class="attached-files">
+									<ng-container *ngFor="let file of base64;let i=index">
+										<div class="file" title="{{file.filename}}">
+											<div class="file-icon"><i class="fad fa-fw fa-swap-opacity fa-file-image"></i></div>
+											<div class="file-info">
+												<div class="file-name">{{file.name}}</div>
+												<div class="file-size">{{file.size}}</div>
+											</div>
+											<div class="file-action">
+												<a href="javascript:void(0)" class="btn-action" (click)="removeFile(i)">Remove</a>
+											</div>
+										</div>
+									</ng-container>
+									<div class="add-file" title="Add File">
+										<input type="file" class="input-file" multiple (change)="onFileChange($event)"/>
+										<i class="fal fa-fw fa-plus"></i>
+										<span>Add File</span>
+									</div>
+								</div>
+								<div class="file-upload-footer">
+									<a href="javascript:void(0)" class="btn-upload" (click)="sendAttachment()"><i class="fal fa-fw fa-cloud-upload"></i><span>Send Attachments</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> 
+			</div>
+		</div>
+	</section>

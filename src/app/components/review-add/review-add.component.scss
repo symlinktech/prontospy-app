@@ -1,0 +1,14 @@
+app-review-add{
+	.rating-widget{display: flex;flex-direction: column;justify-content: center;align-items: center;padding: 40px 20px;border-radius: 10px;background-color: rgba(48, 122, 213, 0.1);}
+	.rating-widget{
+		.control-label{font-size: 18px;color: var(--secondaryColor);text-transform: capitalize;margin: 0 0 10px;}
+		.rating-list{}
+		.rating-list{
+			.rating-item{}
+			.rating-item{
+				.star{font-size: 30px;color: var(--thirdColor);}
+				.star.hover{color: #FF9800;}
+			}
+		}
+	} 
+}

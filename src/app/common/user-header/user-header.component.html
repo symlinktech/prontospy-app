@@ -1,0 +1,41 @@
+<div class="row header-row">
+	<div class="col-md-12">
+		<div class="header-wrap">
+			<div class="col-md-6 col-lg-6">
+				<div class="heder-title" *ngIf="url!='/account/consultant/myprofile/schedule'">
+					{{name}}
+				</div>
+				<div class="heder-title" title="{{'daily_schedule_text' | translate}}" *ngIf="url=='/account/consultant/myprofile/schedule'">
+					{{name}}
+				</div>
+				<button type="button" class="btn btn-link menulink-button d-md-none" id="sideMenuTrigger"><i class="far fa-arrow-right"></i></button>
+			</div>
+			<div class="col-md-6 col-lg-6 d-flex">
+				<div class="header-profile ml-auto">
+					<div class="profile-icon">
+						<img src="{{image}}" alt="" onError="this.src='assets/img/profile-icon.png'"/>
+					</div>
+					<div class="profilr-text">
+						<span class="profile-name">{{first_name}} {{last_name}}</span>
+						<span class="profile-contact">{{email}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <div class="row position-relative">
+			<div class="mobile-menu-wrap" id="modSideMenu">
+				<div class="side-bar-mob">
+					<ul>
+						<li class="active" ><a href="dashboard.html">Dashboard</a></li>
+						<li ><a href="myaccount.html">My Account</a></li>
+						<li ><a href="appointment-list.html">Appointments</a></li>
+						<li><a href="#">Medicine record</a></li>
+						<li><a href="#">Online consultation</a></li>
+						<li><a href="#">Feedback</a></li>
+						<li><a href="#">Payment</a></li>
+					</ul>
+				</div>
+			</div>
+		</div> -->

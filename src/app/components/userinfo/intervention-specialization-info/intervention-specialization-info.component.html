@@ -1,0 +1,274 @@
+<section class="sec-dashboard" >
+  <div class="container container-bg">
+    <app-user-header [name]="'intervention_specialization_area' | translate"></app-user-header>
+    <div class="row position-relative">
+      <div class="col-md-3 col-lg-2">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="card-container">
+          <app-user-tab></app-user-tab>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header">
+                <div class="lable-text">{{'intervention_specialization_area' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">{{'intervention_area' | translate}}</label>
+                <div class="select-dropdown dropdown">
+                  <a href="javascript:void(0)" class="data-toggle" data-toggle="dropdown" title="{{title_intervention_value}}" id="intervention_name">Select</a>
+                  <div class="dropdown-menu intervention">
+                  <div class="dropdown-search">
+                  <input type="text" class="form-control" name="" placeholder="Search..." (keyup)="autoSearch($event,'intervention')"/>
+                  </div>
+                    <div class="dropdown-list">
+                      <div class="item" *ngFor="let intervention of InterventionList;let i=index">
+                        <div class="custom-radio intervention">
+                          <input type="radio" class="custom-radio-input" [attr.data-value]="intervention.name" value="{{intervention.id}}" name="custom_intervention_checkbox" [checked]="intervention.checked" id="intervention_ids">
+                          <label class="custom-radio-label">{{intervention.name}}</label>
+                        </div>
+                        {{(i==(InterventionList?.length-1))?initializeInterventionFun():''}}
+                      </div>
+                      <!-- <div class="item">
+                        <div class="custom-checkbox">
+                          <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="'Other'" value="other" name="custom_intervention_checkbox" id="intervention_ids" (click)="otherIntervention()">
+                          <label class="custom-checkbox-label">Other Add</label>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 intervention d-none">
+              <label class="control-label">Other Intervention Text</label>
+               <div class="form-group">
+                   <input type="text" class="form-control" placeholder="Other Intervention Text"  name="intervention_text" [(ngModel)]="intervention_text">
+               </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">{{'therapeutic_approach' | translate}}</label>
+                 <div class="select-dropdown dropdown">
+                  <a href="javascript:void(0)" class="data-toggle" data-toggle="dropdown" title="{{title_therapeutic_value}}" id="therapeutic_name">Select</a>
+                  <div class="dropdown-menu therapeutic">
+                  <div class="dropdown-search">
+                    <input type="text" class="form-control" name="" placeholder="Search..." (keyup)="autoSearch($event,'therapeutic')"/>
+                  </div>
+                    <div class="dropdown-list">
+                      <ng-container *ngFor="let therapeutic of SpecializationList;let i=index;">
+                        <ng-template [ngIf]="therapeutic.type=='1'">
+                          <ng-template  [ngIf]="therapeutic.sub?.length>0" [ngIfElse]="optionValue">
+                            <div class="option-group-header">{{therapeutic.name}}</div>
+                            <ng-container *ngFor="let data of therapeutic.sub">
+                              <div class="item">
+                                <div class="custom-checkbox therapeutic">
+                                  <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="data.name" value="{{data.id}}" [checked]="data.checked" id="therapeutic_ids">
+                                  <label class="custom-checkbox-label">{{data.name}}</label>
+                                </div>
+                              </div>
+                            </ng-container>
+                            </ng-template>
+                            <ng-template #optionValue>
+                              <div class="item">
+                                <div class="custom-checkbox therapeutic">
+                                  <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="therapeutic.name" value="{{therapeutic.id}}" name="custom_intervention_checkbox" [checked]="therapeutic.checked" id="therapeutic_ids">
+                                  <label class="custom-checkbox-label">{{therapeutic.name}}</label>
+                                </div>
+                              </div>
+                            </ng-template>
+                        </ng-template>
+                        {{(i==(SpecializationList?.length-1))?initializeTherapeuticFun():''}}
+                      </ng-container>
+                      <!-- <div class="item">
+                        <div class="custom-checkbox">
+                          <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="'Other'" value="other" name="custom_intervention_checkbox" id="therapeutic_ids" (click)="otherTherapeutic()">
+                          <label class="custom-checkbox-label">Other Add</label>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 therapeutic d-none">
+               <div class="form-group">
+                <label class="control-label">Other Therapeutic Text</label>
+                  <input type="text" class="form-control" placeholder="Other Therapeutic Text"  name="specialization_therapeutic_text" [(ngModel)]="specialization_therapeutic_text">
+               </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">{{'mental_neuro_disorder' | translate}}</label>
+                <div class="select-dropdown dropdown">
+                  <a href="javascript:void(0)" class="data-toggle" data-toggle="dropdown" title="{{title_mental_value}}" id="mental_name">Select</a>
+                  <div class="dropdown-menu mental">
+                  <div class="dropdown-search">
+                  <input type="text" class="form-control" name="" placeholder="Search..." (keyup)="autoSearch($event,'mental')"/>
+                  </div>
+                    <div class="dropdown-list">
+                      <ng-container *ngFor="let mental of SpecializationList;let i=index;">
+                        <ng-template [ngIf]="mental.type=='2'">
+                          <ng-template [ngIf]="mental.sub?.length>0" [ngIfElse]="optionValue1">
+                            <div class="option-group-header">{{mental.name}}</div>
+                              <ng-container  *ngFor="let data of mental.sub">
+                                <div class="item">
+                                  <div class="custom-checkbox mental">
+                                    <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="data.name" value="{{data.id}}" [checked]="data.mental_checked" id="mental_ids" 
+                                    [attr.data-parent]="mental.id">
+                                    <label class="custom-checkbox-label">{{data.name}}</label>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </ng-template>
+                            <ng-template #optionValue1>
+                              <div class="item">
+                                <div class="custom-checkbox mental">
+                                  <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="mental.name" value="{{mental.id}}" name="custom_intervention_checkbox" [checked]="mental.mental_checked" id="mental_ids">
+                                  <label class="custom-checkbox-label">{{mental.name}}</label>
+                                </div>
+                              </div>
+                            </ng-template>
+                        </ng-template>
+                        {{(i==(SpecializationList?.length-1))?initializeMentalFun():''}}
+                      </ng-container>
+                      <!-- <div class="item">
+                        <div class="custom-checkbox">
+                          <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="'Other'" value="other" name="custom_intervention_checkbox" id="mental_ids" (click)="otherMental()">
+                          <label class="custom-checkbox-label">Other Add</label>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mental d-none">
+              <div class="form-group">
+                <label class="control-label">Other Mental Text</label>
+                <input type="text" class="form-control" placeholder="Other Mental Text"  name="specialization_mental_text" [(ngModel)]="specialization_mental_text">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">{{'psychological_problems' | translate}}</label>
+                <div class="select-dropdown dropdown">
+                  <a href="javascript:void(0)" class="data-toggle" data-toggle="dropdown" title="{{title_psycho_value}}" id="psycho_name">Select</a>
+                  <div class="dropdown-menu psycho">
+                  <div class="dropdown-search">
+                  <input type="text" class="form-control" name="" placeholder="Search..." (keyup)="autoSearch($event,'psycho')"/>
+                  </div>
+                    <div class="dropdown-list">
+                      <ng-container *ngFor="let psychological of SpecializationList;let i=index;">
+                        <ng-template [ngIf]="psychological.type=='3'">
+                          <ng-template [ngIf]="psychological.sub?.length>0" [ngIfElse]="optionValue2">
+                            <div class="option-group-header">{{psychological.name}}</div>
+                              <ng-container  *ngFor="let data of psychological.sub">
+                                <div class="item">
+                                  <div class="custom-checkbox psychological">
+                                    <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="data.name" value="{{data.id}}" [checked]="data.psycho_checked" id="psycho_ids"
+                                    [attr.data-parent]="psychological.id">
+                                    <label class="custom-checkbox-label">{{data.name}}</label>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </ng-template>
+                            <ng-template #optionValue2>
+                              <div class="item">
+                                <div class="custom-checkbox psychological">
+                                  <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="psychological.name" value="{{psychological.id}}" name="custom_intervention_checkbox" [checked]="psychological.psycho_checked" id="psycho_ids">
+                                  <label class="custom-checkbox-label">{{psychological.name}}</label>
+                                </div>
+                              </div>
+                            </ng-template>
+                        </ng-template>
+                        {{(i==(SpecializationList?.length-1))?initializePsychoFun():''}}
+                      </ng-container>
+                      <!-- <div class="item">
+                        <div class="custom-checkbox">
+                          <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="'Other'" value="other" name="custom_intervention_checkbox" id="psycho_ids" (click)="otherPsycho()">
+                          <label class="custom-checkbox-label">Other Add</label>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 psychological d-none">
+                <div class="form-group">
+                  <label class="control-label">Other Psychological Text</label>
+                  <input type="text" class="form-control" placeholder="Other Psychological Text"  name="specialization_psycho_text" [(ngModel)]="specialization_psycho_text">
+                </div>
+              </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label">{{'other_topics' | translate}}</label>
+                <div class="select-dropdown dropdown">
+                  <a href="javascript:void(0)" class="data-toggle" data-toggle="dropdown" title="{{title_other_value}}" id="other_name">Select</a>
+                  <div class="dropdown-menu other">
+                  <div class="dropdown-search">
+                  <input type="text" class="form-control" name="" placeholder="Search..." (keyup)="autoSearch($event,'other')"/>
+                  </div>
+                    <div class="dropdown-list">
+                      <ng-container *ngFor="let others of SpecializationList;let i=index;">
+                        <ng-template [ngIf]="others.type=='4'">
+                          <ng-template [ngIf]="others.sub?.length>0" [ngIfElse]="optionValue3">
+                            <div class="option-group-header">{{others.name}}</div>
+                              <ng-container  *ngFor="let data of others.sub">
+                                <div class="item">
+                                  <div class="custom-checkbox others">
+                                    <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="data.name" value="{{data.id}}" [checked]="data.other_checked" id="other_ids"
+                                    [attr.data-parent]="others.id">
+                                    <label class="custom-checkbox-label">{{data.name}}</label>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </ng-template>
+                            <ng-template #optionValue3>
+                              <div class="item">
+                                <div class="custom-checkbox others">
+                                  <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="others.name" value="{{others.id}}" name="custom_intervention_checkbox" [checked]="others.other_checked" id="other_ids">
+                                  <label class="custom-checkbox-label">{{others.name}}</label>
+                                </div>
+                              </div>
+                            </ng-template>
+                        </ng-template>
+                        {{(i==(SpecializationList?.length-1))?initializeOtherFun():''}}
+                      </ng-container>
+                      <!-- <div class="item">
+                        <div class="custom-checkbox">
+                          <input type="checkbox" class="custom-checkbox-input" [attr.data-value]="'Other'" value="other" name="custom_intervention_checkbox" id="other_ids" (click)="otherPsycho()">
+                          <label class="custom-checkbox-label">Other Add</label>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 others d-none">
+                <div class="form-group">
+                   <label class="control-label">Other Text</label>
+                  <input type="text" class="form-control" placeholder="Other Text"  name="specialization_others_text" [(ngModel)]="specialization_others_text">
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header border-0 mt-3">
+                <div class="lable-text ml-auto">
+                  <button class="btn-universal" (click)="updateInterventionInfo()">{{'save_changes' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,196 @@
+<section class="sec-dashboard" >
+  <div class="container container-bg">
+    <app-user-header [name]="'daily_schedule' | translate"></app-user-header>
+    <div class="row position-relative">
+      <div class="col-md-3 col-lg-2">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="card-container">
+          <app-user-tab></app-user-tab>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header">
+                <div class="lable-text">{{'daily_schedule' | translate}}</div>
+              </div> 
+            </div>
+          </div>
+          <ng-template [ngIf]="TimeTableList?.length==0">
+            <ng-container *ngFor="let schedule of scheduleList;let i=index">
+              <div class="schedule_list">
+                <input type="hidden" class="form-control" name="id" value="" />
+                <input type="hidden" class="form-control" name="day" value="{{schedule.day}}" />
+                <input type="hidden" class="form-control" name="day_number" value="{{schedule.id}}" />
+                <div class="schedule-row row form-row">
+                  <div class="col-12">
+                    <div class="schedule-title">{{schedule.day | translate}}</div>
+                  </div>
+                  <div class="col-12">
+                    <div class="row form-row">
+                      <div class="col-md-6">
+                        <div class="schedule-half">{{'first_half' | translate}}</div>
+                        <div class="row form-row">
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label class="control-label">{{'start_time' | translate}}</label>
+                              <input type="text" class="form-control timepicker" id="date_timepicker_start_S_{{i}}" placeholder="Select Time" name="first_half_from" autocomplete="off" value={{schedule.value}}/>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label class="control-label">{{'end_time' | translate}}</label>
+                              <input type="text" class="form-control timepicker" id="date_timepicker_end_e_{{i}}" placeholder="Select Time" name="first_half_to" autocomplete="off" value={{schedule.value}}/>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="form-group">
+                              <div class="checkbox-group">
+                                <div class="custom-checkbox">
+                                  <input type="checkbox" name="first_close" class="custom-checkbox-input"/>
+                                  <div class="custom-checkbox-label">{{'close' | translate}}</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="schedule-half">{{'second_half' | translate}}</div>
+                        <div class="row form-row">
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label class="control-label">{{'start_time' | translate}}</label>
+                              <input type="text" class="form-control timepicker" id="date_timepicker_start1_s_{{i}}" placeholder="Select Time" name="second_half_from" autocomplete="off" value={{schedule.value}}/>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label class="control-label">{{'end_time' | translate}}</label>
+                              <input type="text" class="form-control timepicker" id="date_timepicker_end1_e_{{i}}" placeholder="Select Time" name="second_half_to" autocomplete="off" value={{schedule.value}}/>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="form-group">
+                              <div class="checkbox-group">
+                                <div class="custom-checkbox">
+                                  <input type="checkbox" name="second_close" class="custom-checkbox-input"/>
+                                  <div class="custom-checkbox-label">{{'close' | translate}}</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-template>
+          <ng-template [ngIf]="TimeTableList?.length>0">
+            <ng-container *ngFor="let schedule of TimeTableList;let i=index">
+              <div class="schedule_list">
+                <input type="hidden" class="form-control" name="id" value="{{schedule.id}}" />
+                <input type="hidden" class="form-control" name="day" value="{{schedule.day_name}}" />
+                <input type="hidden" class="form-control" name="day_number" value="{{schedule.day_number}}" />
+                <div class="schedule-row row form-row">
+                  <div class="col-12">
+                    <div class="schedule-title">{{schedule.day_name | translate}}</div>
+                  </div>
+                  <div class="col-12">
+                    <div class="row form-row">
+                      <div class="col-md-6">
+                        <div class="schedule-half">{{'first_half' | translate}}</div>
+                        <div class="row form-row">
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label class="control-label">{{'start_time' | translate}}</label>
+                              <input type="text" class="form-control timepicker-1" id="date_timepicker_start2_s_{{i}}" placeholder="Select Time" name="first_half_from" autocomplete="off" value="{{'01/01/2007'+' '+schedule.first_from | date:'HH:mm'}}"/>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label class="control-label">{{'end_time' | translate}}</label>
+                              <input type="text" class="form-control timepicker-1" id="date_timepicker_end2_e_{{i}}" placeholder="Select Time" name="first_half_to" autocomplete="off" value="{{'01/01/2007'+' '+schedule.first_to | date:'HH:mm'}}"/>
+                            </div>
+                          </div>
+                          <div class="col-4 d-flex align-items-center">
+                            <div class="form-group m-0">
+                              <div class="checkbox-group">
+                                <div class="custom-checkbox">
+                                  <input type="checkbox" name="first_close" class="custom-checkbox-input" checked="{{schedule.first_is_checked}}"/>
+                                  <div class="custom-checkbox-label">{{'close' | translate}}</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="schedule-half">{{'second_half' | translate}}</div>
+                        <div class="row form-row">
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label class="control-label">{{'start_time' | translate}}</label>
+                              <input type="text" class="form-control timepicker-1" id="date_timepicker_start3_s_{{i}}" placeholder="Select Time" name="second_half_from" autocomplete="off" value="{{'01/01/2007'+' '+schedule.second_from | date:'HH:mm'}}"/>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label class="control-label">{{'end_time' | translate}}</label>
+                              <input type="text" class="form-control timepicker-1" id="date_timepicker_end3_e_{{i}}" placeholder="Select Time" name="second_half_to" autocomplete="off" value="{{'01/01/2007'+' '+schedule.second_to | date:'HH:mm'}}"/>
+                            </div>
+                          </div>
+                          <div class="col-4 d-flex align-items-center">
+                            <div class="form-group m-0">
+                              <div class="checkbox-group">
+                                <div class="custom-checkbox">
+                                  <input type="checkbox" name="second_close" class="custom-checkbox-input" checked="{{schedule.second_is_checked}}" />
+                                  <div class="custom-checkbox-label">{{'close' | translate}}</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{(i==(TimeTableList?.length-1))?initializeFun():''}}
+            </ng-container>
+          </ng-template>
+          <div class="form-row">
+            <div class="col-6 col-md-3">
+              <div class="form-group">
+              <label class="control-label" title="{{'schedule_duration_text' | translate}}">{{'schedule_duration' | translate}}({{'minute' | translate}})</label>
+              <input type="number" class="form-control" placeholder="{{'schedule_duration' | translate}}"  name="schedule_duration" id="schedule_duration" [(ngModel)]="schedule_duration">
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="form-group">
+              <label class="control-label" title="{{'last_attempt_duration_text' | translate}}">{{'last_attempt_duration' | translate}}({{'minute' | translate}})</label>
+              <input type="text" class="form-control" placeholder="{{'last_attempt_duration' | translate}}"  name="last_attempt_duration" id="last_attempt_duration" [(ngModel)]="last_attempt_duration">
+              </div>
+            </div>
+            <div class="col-6 col-md-3 d-none">
+              <div class="form-group">
+              <label class="control-label">Interval Duration</label>
+              <input type="number" class="form-control" placeholder="Interval Duration"  name="interval_duration" id="interval_duration" [(ngModel)]="interval_duration">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header border-0 mt-3">
+                <div class="lable-text ml-auto">
+                  <button class="btn-universal" (click)="updateSchedule()">{{'save_changes' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

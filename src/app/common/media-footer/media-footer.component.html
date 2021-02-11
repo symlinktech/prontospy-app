@@ -1,0 +1,56 @@
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="footer-content">
+					<div class="title">{{'about_us' | translate}}</div>
+					<div class="text" [innerHTML]="Settings.company_history">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-7 col-md-7 col-lg-4">
+				<div class="footer-content">
+					<div class="title">{{'quick_links' | translate}}</div>
+					<div class="footer-links">
+							<a href="javascript:void(0)" class="link-item" [routerLink]="['']">{{'what_is_prontospy' | translate}}</a>
+							<a href="javascript:void(0)" class="link-item" [routerLink]="['/about-us']">{{'about_us' | translate}}</a>
+							<a href="javascript:void(0)" class="link-item" [routerLink]="['/faq']">FAQ's</a>
+							<a href="javascript:void(0)" class="link-item">{{'work_with_us' | translate}}</a>
+							<a href="javascript:void(0)" class="link-item">{{'terms_of_service' | translate}}</a>
+							<a href="javascript:void(0)" class="link-item">{{'privacy_policies' | translate}}</a>
+							<a href="javascript:void(0)" class="link-item">{{'payment_policies' | translate}}</a>
+							<a href="javascript:void(0)" class="link-item" [routerLink]="['/contact']">{{'contact_us' | translate}}</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-5 col-md-5 col-lg-3">
+				<div class="footer-content">
+					<div class="title">{{'contact' | translate}}</div>
+					<div class="footer-contact mb-4">
+						<div class="item">
+							<div class="label">{{'contact' | translate}}</div>
+							<div class="data"><a href="tel:{{Settings.customer_support}}" class="data-link">{{Settings.customer_support}}</a></div>
+						</div>
+						<div class="item">
+							<div class="label">{{'email' | translate}}</div>
+							<div class="data"><a href="mailto:{{Settings.email}}" class="data-link">{{Settings.email}}</a></div>
+						</div>
+					</div>
+					<div class="title mb-2">{{'follow_us_on' | translate}}</div>
+					<div class="footer-social">
+						<a href="{{Settings.facebook_link}}" class="item" target="_blank"><i class="fab fa-fw fa-facebook"></i></a>
+						<a href="{{Settings.twitter_link}}" class="item" target="_blank"><i class="fab fa-fw fa-twitter"></i></a>
+						<a href="{{Settings.google_plus_link}}" class="item" target="_blank"><i class="fab fa-fw fa-google"></i></a>
+						<a href="{{Settings.instagram_link}}" class="item" target="_blank"><i class="fab fa-fw fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="copyright">&copy; {{Settings.title}} {{current_year}} | All rights & reserved</div>
+			<div class="website">{{'website_by' | translate}} <a href="https://www.symlinktech.com" target="_blank" rel="nofollow">Symlink Technologies LLP</a></div>
+		</div>
+	</div>
+</footer>

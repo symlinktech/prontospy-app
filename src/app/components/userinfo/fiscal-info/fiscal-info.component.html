@@ -1,0 +1,116 @@
+<section class="sec-dashboard" >
+  <div class="container container-bg">
+    <app-user-header [name]="'fiscal_information' | translate"></app-user-header>
+    <div class="row position-relative">
+      <div class="col-md-3 col-lg-2">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="card-container">
+          <app-user-tab></app-user-tab>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header">
+                <div class="lable-text">{{'fiscal_information' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">{{'business_name' | translate}}</label>
+                <input type="email" class="form-control" placeholder="{{'business_name' | translate}}"  name="fiscal_business_name" [(ngModel)]="fiscal_business_name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">{{'fiscal_code' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'fiscal_code' | translate}}"  name="fiscal_code" [(ngModel)]="fiscal_code">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-6 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'country' | translate}}</label>
+                <select id="fiscal_country" class="form-control select2 country" name="fiscal_country" [(ngModel)]="fiscal_country">
+                  <option value="">{{'country' | translate}}</option>
+                  <option value="{{country.id}}" *ngFor="let country of CountryList">{{country.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-6 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'province' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'province' | translate}}"  name="fiscal_province" [(ngModel)]="fiscal_province" id="fiscal_province">
+                
+                <!-- <select id="fiscal_province" class="form-control select2 state" name="fiscal_province" [(ngModel)]="fiscal_province">
+                  <option value="">{{'province' | translate}}</option>
+                  <option value="{{state.id}}" *ngFor="let state of StateList">{{state.name}}</option>
+                </select> -->
+              </div>
+            </div>
+            <div class="col-6 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'city' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'city' | translate}}"  name="fiscal_city" [(ngModel)]="fiscal_city" id="fiscal_city">
+
+                <!-- <select id="fiscal_city" class="form-control" name="fiscal_city" [(ngModel)]="fiscal_city">
+                  <option value="">{{'city' | translate}}</option>
+                  <option value="{{city.id}}" *ngFor="let city of CityList">{{city.name}}</option>
+                </select> -->
+              </div>
+            </div>
+            <div class="col-6 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'zipcode' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'zipcode' | translate}}"  name="fiscal_zipcode" [(ngModel)]="fiscal_zipcode">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'business_address' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'business_address' | translate}}"  name="fiscal_address" [(ngModel)]="fiscal_address">
+              </div>
+            </div>
+            <div class="col-6 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'vat_no' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'vat_no' | translate}}"  name="fiscal_vatno" [(ngModel)]="fiscal_vatno">
+              </div>
+            </div>
+            <div class="col-6 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'pec' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'pec' | translate}}"  name="fiscal_pec" [(ngModel)]="fiscal_pec">
+              </div>
+            </div>
+            <div class="col-6 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="control-label">{{'personal_email' | translate}}</label>
+                    <input type="email" class="form-control" placeholder="{{'email' | translate}}"  name="personal_email" [(ngModel)]="personal_email">
+                  </div>
+                </div>
+            <div class="col-6 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'sdi' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'sdi' | translate}}"  name="fiscal_sdi" [(ngModel)]="fiscal_sdi">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header border-0 mt-3">
+                <div class="lable-text ml-auto">
+                  <button class="btn-universal" (click)="updateFiscalInfo()">Save Changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

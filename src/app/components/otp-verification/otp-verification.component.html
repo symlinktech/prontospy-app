@@ -1,0 +1,22 @@
+<section class="sec-authentication">
+	<div class="authentication-wrap">
+		<div class="authentication-content">
+			<div class="title"><span>{{'otp_verification' | translate}}</span></div>
+			<form class="form-content">
+				<div class="form-group">
+					<div class="form-input-group">
+						<div class="icon"><i class="fal fa-fw fa-user"></i></div>
+						<input type="number" class="form-control" placeholder="{{'enter_otp' | translate}}" name="entered_otp" [(ngModel)]="entered_otp"/>
+					</div>
+				</div>
+				<div class="form-group text-center">
+					<button type="button" class="btn-submit" (click)="verifyOtp()">
+						<i class="fal fa-fw fa-sign-in"></i>
+						<span>{{'verify' | translate}}</span>
+					</button>
+				</div>
+			</form>
+			<div class="authentication-options">{{'i_did_not_received_any_code' | translate}} <a href="javascript:void(0)" (click)="resendOtp()">{{'resend' | translate}}</a></div>
+		</div>
+	</div>
+</section>

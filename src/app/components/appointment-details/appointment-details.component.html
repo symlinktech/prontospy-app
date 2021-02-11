@@ -1,0 +1,578 @@
+<section class="sec-dashboard" >
+	<div class="container container-bg">
+		<app-user-header [name]="'appointment_details' | translate"></app-user-header>
+		<div class="row position-relative">
+			<div class="col-md-3 col-lg-2">
+				<app-user-sidebar></app-user-sidebar>
+			</div>
+			<div class="col-sm-12 col-md-9 col-lg-10">
+				<div class="card-container">
+					<div class="row">
+					  <div class="col-md-12">
+					    <div class="card-nav">
+					      <nav class="nav nav-pills nav-fill">
+					        <a class="nav-item nav-link active" href="javascript:void(0)" (click)="showDiv('details')">{{'details' | translate}}</a>
+					        <a class="nav-item nav-link" href="javascript:void(0)" (click)="showDiv('payments')">{{'payments' | translate}}</a>
+					        <a class="nav-item nav-link" href="javascript:void(0)" (click)="showDiv('reviews')">{{'reviews' | translate}}</a>
+					        </nav>
+					    </div>
+					  </div>
+					</div>
+					<div class="row d-none" id="details">
+						<div class="col-12">
+							<div class="appointment-data">
+								<div class="appointment-header">
+									<!-- <div class="appointment-header-label">{{(user_id==consultant_id)?'Patient Name':'Consultant Name'}}</div> -->
+									<div class="appointment-header-data">{{appointmentData.profile_name}}</div>
+								</div>
+								<ng-template [ngIf]="role=='user'">
+									<div class="appointment-content">
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="appointment-title">{{'consultant_business_information' | translate}}</div>
+												<div class="row form-row mb-3">
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'consultant_name' | translate}}</div>
+															<div class="control-data">{{fiscal_business_name}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'professional_qualification' | translate}}</div>
+															<div class="control-data">{{professional_qualifications}}</div>
+														</div>
+													</div>
+												</div>
+												<ng-template [ngIf]="consultant_insurance_available_status==2">
+													<div class="appointment-title">{{'insurance_information' | translate}}</div>
+													<div class="row form-row mb-3">
+														<div class="col-md-6">
+															<div class="form-group">
+																<div class="control-label">{{'insurance_company_name' | translate}}</div>
+																<div class="control-data">{{insurance_company_name}}</div>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<div class="control-label">{{'insurance_exp_date' | translate}}</div>
+																<div class="control-data">{{insurance_expiration}}</div>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<div class="control-label">{{'insurance_number' | translate}}</div>
+																<div class="control-data">{{insurance_number}}</div>
+															</div>
+														</div>
+													</div>
+												</ng-template>
+												<div class="appointment-title">{{'service_information' | translate}}</div>
+												<div class="row form-row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'service_offered' | translate}}</div>
+															<div class="control-data">{{(services=='1')?('direct_access_online_psychological_counseling' | translate):('on_scheduled_online_psychological_counselling' | translate)}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'mode' | translate}}</div>
+															<div class="control-data">{{(mode=='1')?('chat' | translate):(mode=='2')?('voice' | translate):(mode=='3')?('video' | translate):''}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'appointment_date' | translate}}</div>
+															<div class="control-data">{{appointmentData.date}}</div>
+														</div>
+													</div>
+												</div>
+												<div class="row form-row mb-3">
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'start_time' | translate}}</div>
+															<div class="control-data">{{appointmentData.start_time}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'end_time' | translate}}</div>
+															<div class="control-data">{{appointmentData.end_time}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="appointment-title">{{'membership_information' | translate}}</div>
+												<div class="row form-row mb-3">
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'city' | translate}}</div>
+															<div class="control-data">{{membership_city}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'member_name' | translate}}</div>
+															<div class="control-data">{{membership_name}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'region' | translate}}</div>
+															<div class="control-data">{{membership_region}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'membership_reg_no' | translate}}</div>
+															<div class="control-data">{{membership_reg_no}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'membership_date_reg' | translate}}</div>
+															<div class="control-data">{{membership_date_reg}}</div>
+														</div>
+													</div>
+												</div>
+												<div class="appointment-title">{{'fiscal_information' | translate}}</div>
+												<div class="row form-row mb-3">
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'business_address' | translate}}</div>
+															<div class="control-data">{{fiscal_address}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'city' | translate}}</div>
+															<div class="control-data">{{fiscal_city}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'fiscal_code' | translate}}</div>
+															<div class="control-data">{{fiscal_code}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'pec' | translate}}</div>
+															<div class="control-data">{{fiscal_pec}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'province' | translate}}e</div>
+															<div class="control-data">{{fiscal_province}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'personal_email' | translate}}</div>
+															<div class="control-data">{{personal_email}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'sdi' | translate}}</div>
+															<div class="control-data">{{fiscal_sdi}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'vat_no' | translate}}</div>
+															<div class="control-data">{{fiscal_vatno}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'country' | translate}}</div>
+															<div class="control-data">{{fiscal_country}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'zipcode' | translate}}</div>
+															<div class="control-data">{{fiscal_zipcode}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</ng-template>
+								<ng-template [ngIf]="role=='consultant'">
+									<div class="appointment-content">
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="appointment-title">{{'client_business_information' | translate}}</div>
+												<div class="row form-row mb-3">
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'business_name' | translate}}</div>
+															<div class="control-data">{{fiscal_business_name}}</div>
+														</div>
+													</div>
+												</div>
+												<div class="appointment-title">{{'servic_information' | translate}}</div>
+												<div class="row form-row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'service_offered' | translate}}</div>
+															<div class="control-data">{{(services=='1')?('direct_access_online_psychological_counseling' | translate):('on_scheduled_online_psychological_counselling' | translate)}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'mode' | translate}}</div>
+															<div class="control-data">{{(mode=='1')?('chat' | translate):(mode=='2')?('voice' | translate):(mode=='3')?('video' | translate):''}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'appointment_date' | translate}}</div>
+															<div class="control-data">{{appointmentData.date}}</div>
+														</div>
+													</div>
+												</div>
+												<div class="row form-row mb-3">
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'start_time' | translate}}</div>
+															<div class="control-data">{{appointmentData.start_time}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'end_time' | translate}}</div>
+															<div class="control-data">{{appointmentData.end_time}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="appointment-title">{{'fiscal_information' | translate}}</div>
+												<div class="row form-row mb-3">
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'business_address' | translate}}</div>
+															<div class="control-data">{{fiscal_address}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'city' | translate}}</div>
+															<div class="control-data">{{fiscal_city}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'fiscal_code' | translate}}</div>
+															<div class="control-data">{{fiscal_code}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'pec' | translate}}</div>
+															<div class="control-data">{{fiscal_pec}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'province' | translate}}</div>
+															<div class="control-data">{{fiscal_province}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'personal_email' | translate}}</div>
+															<div class="control-data">{{personal_email}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'sdi' | translate}}</div>
+															<div class="control-data">{{fiscal_sdi}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'vat_no' | translate}}</div>
+															<div class="control-data">{{fiscal_vatno}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'country' | translate}}</div>
+															<div class="control-data">{{fiscal_country}}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<div class="control-label">{{'zipcode' | translate}}</div>
+															<div class="control-data">{{fiscal_zipcode}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</ng-template>
+							</div>
+						</div>
+					</div>
+					<div class="row d-none" id="payments">
+						<div class="col-12">
+							<div class="appointment-payment">
+								<div class="appointment-content" id="invoice_pdf" #invoice_pdf>
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="appointment-title">{{'payment_information' | translate}}</div>
+											<div class="row form-row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="control-label">{{'payment_status' | translate}}</div>
+														<div class="control-data">{{(appointmentData.payment_status==1)?('pending' | translate):(appointmentData.payment_status==2)?('authorized' | translate):(appointmentData.payment_status==3)?('captured' | translate):(appointmentData.payment_status==4)?('authorize_failed' | translate):(appointmentData.payment_status==5)?('payment_released' | translate):(appointmentData.payment_status==6)?('capture_failed' | translate):'N/A'}}</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="control-label">{{'currency' | translate}}</div>
+														<div class="control-data">{{appointmentData.currency}}</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="control-label">{{'price' | translate}} /min</div>
+														<div class="control-data">{{price_per_min | currency:appointmentData.currency}}</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="control-label">{{'total_duration_time' | translate}}</div>
+														<div class="control-data">{{timeDuration}}</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="control-label">{{'authorize_amount' | translate}}</div>
+														<div class="control-data">{{appointmentData.authorization_amount | currency:appointmentData.currency}}</div>
+													</div>
+												</div>
+												<div class="col-md-6" *ngIf="role=='user'">
+													<div class="form-group">
+														<div class="control-label">{{'payable_amount' | translate}}</div>
+														<div class="control-data">{{payable_amount | currency:appointmentData.currency}}</div>
+													</div>
+												</div>
+												<div class="col-md-6" *ngIf="appointmentData.payment_status==3">
+													<div class="form-group">
+														<div class="control-label">{{'captured_amount' | translate}}</div>
+														<div class="control-data">{{payable_amount | currency:appointmentData.currency}}</div>
+													</div>
+												</div>
+												<div class="col-md-6" *ngIf="role=='consultant'">
+													<div class="form-group">
+														<div class="control-label">{{'total_amount' | translate}}</div>
+														<div class="control-data">{{total_amount | currency:appointmentData.currency}}</div>
+													</div>
+												</div>
+												<div class="col-md-6" *ngIf="role!='user'">
+													<div class="form-group">
+														<div class="control-label">{{'admin_percentage' | translate}}</div>
+														<div class="control-data">{{admin_percentage}}%</div>
+													</div>
+												</div>
+												<div class="col-md-6" *ngIf="role!='user'">
+													<div class="form-group">
+														<div class="control-label">{{'admin_amount' | translate}}</div>
+														<div class="control-data">{{admin_amount | currency:appointmentData.currency}}</div>
+													</div>
+												</div>
+												<div class="col-md-6" *ngIf="role!='user'">
+													<div class="form-group">
+														<div class="control-label">{{'payout_amount' | translate}}</div>
+														<div class="control-data">{{payout_amount | currency:appointmentData.currency}}</div>
+													</div>
+												</div>
+												<div class="col-md-6" *ngIf="role=='consultant'">
+													<div class="form-group">
+														<div class="control-label">{{'total_amount_to_be_invoiced_to_the_customer' | translate}}</div>
+														<div class="control-data">{{total_amount | currency:appointmentData.currency}}</div>
+													</div>
+												</div>
+<!-- 												<div class="col-md-6">
+													<div class="form-group">
+														<div class="control-label">Note</div>
+														<ng-template [ngIf]="appointmentData.payment_status==1">
+															<div class="control-data">{{'payment_pending' | translate}}</div>
+														</ng-template>
+														<ng-template [ngIf]="appointmentData.payment_status==3 && appointmentData.cron_status==1">
+															<div class="control-data">{{'payment_captured' | translate}}</div>
+														</ng-template>
+														<ng-template [ngIf]="appointmentData.payment_status==2 && appointmentData.cron_status==3">
+															<div class="control-data">{{'payment_authorised' | translate}}</div>
+														</ng-template>
+														<ng-template [ngIf]="appointmentData.payment_status==6 && appointmentData.cron_status==4">
+															<div class="control-data">{{appointmentData.cron_message}}</div>
+														</ng-template>
+														<ng-template [ngIf]="appointmentData.payment_status==5">
+															<div class="control-data">{{'payment_release' | translate}}</div>
+														</ng-template>
+													</div>
+												</div> -->
+												<div class="col-md-6" *ngIf="role=='user'">
+													<div class="form-group">
+														<div class="control-label">{{'disclaimer' | translate}}</div>
+														<div class="control-data">{{'less_than_one_minute_msg' | translate}}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<ng-template [ngIf]="role!='user' && appointmentData.payment_status==3">
+									<div class="invoice-actions">
+										<a href="{{baseUrl+'send-invoice/'+appointment_id}}" target="_blank" class="btn-action">{{'download_invoice' | translate}}</a>
+									</div>
+								</ng-template>
+							</div>
+						</div>
+					</div>
+					<div class="row d-none" id="reviews">
+						<div class="col-12">
+							<div class="consultant-reviews" *ngIf="Reviews?.length>0">
+								<div class="overall-rating">
+									<div class="item">
+										<div class="item-name">{{'comunication' | translate}}</div>
+										<div class="item-rating">
+											<div class="rating">
+												<div class="back">
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+												</div>
+												<div class="front" [ngStyle]="{'width':(empathy_and_flexibility*20) + '%'}">
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="item">
+										<div class="item-name">{{'empathy_and_flexibilit' | translate}}</div>
+										<div class="item-rating">
+											<div class="rating">
+												<div class="back">
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+												</div>
+												<div class="front" [ngStyle]="{'width':(communication*20) + '%'}">
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="item">
+										<div class="item-name">{{'reliable_and_trustworth' | translate}}</div>
+										<div class="item-rating">
+											<div class="rating">
+												<div class="back">
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+												</div>
+												<div class="front" [ngStyle]="{'width':(reliable_and_trustworthy*20) + '%'}">
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="review-list">
+									<div class="item" *ngFor="let review of Reviews">
+										<!-- <a class="add-note" href="javascript:void(0)"><i class="fal fa-fw fa-plus"></i><span>Add Note</span></a> -->
+										<div class="item-image">
+											<img src="{{review.image}}" alt=""/>
+										</div>
+										<div class="item-content">
+											<div class="item-date">{{review.created_at | date:'dd MMM yyyy'}}</div>
+											<div class="item-name">{{review.first_name}} {{(review.middle_name)?review.middle_name:''}} {{review.last_name}}</div>
+											<div class="item-rating">
+												<div class="rating">
+													<div class="back">
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+													</div>
+													<div class="front" [ngStyle]="{'width':(review.rating*20) + '%'}">
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+													</div>
+												</div>
+											</div>
+											<div class="item-comments">{{review.personal_experience}}</div>
+											<div class="item-comments mt-2" *ngIf="review.personal_note_for_consultant"><strong>{{'note_for_psychologist' | translate}}:</strong> {{review.personal_note_for_consultant}}</div>
+										</div>
+<!-- 										<div class="item-note"><span>Note:</span> Start offering online psychological consultations now! Anywhere you are in the World, any time you want, any field of expertise you are specialized in! You choose how much time to dedicate to your daily consultations.</div>
+										<div class="item-add-note">
+											<form>
+												<div class="form-group">
+												<textarea class="form-control" placeholder="Add your note for this consultant"></textarea>
+												</div>
+												<div class="form-group d-flex">
+													<button type="button" class="btn-universal ml-auto" href="javascript:void(0)">Save</button>
+												</div>
+											</form>
+										</div> -->
+									</div>
+								</div>
+							</div>
+							<div class="nodata-wrap" *ngIf="Reviews?.length==0">
+								<div class="nodata-content">
+									<div class="icon">
+										<span class="fa-stack fa-2x">
+											<i class="fal fa-fw fa-stack-2x fa-circle"></i>
+											<i class="fal fa-fw fa-stack-2x fa-slash" style="opacity: 0.5"></i>
+											<i class="fas fa-fw fa-stack-1x fa-list"></i>
+										</span>
+									</div>
+									<div class="nodata-title">{{'no_data_found' | translate}}</div>
+									<div class="nodata-text">{{'it_seems_no_reviews_given' | translate}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

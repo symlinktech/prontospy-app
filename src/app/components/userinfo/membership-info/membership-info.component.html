@@ -1,0 +1,107 @@
+<section class="sec-dashboard" >
+  <div class="container container-bg">
+    <app-user-header [name]="'membership_information' | translate"></app-user-header>
+    <div class="row position-relative">
+      <div class="col-md-3 col-lg-2">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="card-container">
+          <app-user-tab></app-user-tab>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header">
+                <div class="lable-text">{{'membership_information' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label">{{'professional_qualification' | translate}}</label>
+                <select id="professional_qualification" class="form-control select2-nosearch" name="professional_qualification">
+                  <option value="">{{'professional_qualification' | translate}}</option>
+                  <option value="{{profession.id}}" *ngFor="let profession of professionalList">{{profession.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <div class="custom-checkbox">
+                    <input type="checkbox" name="checkbox-professional_declaration" class="custom-checkbox-input"/>
+                    <div class="custom-checkbox-label">{{'professional_declaration' | translate}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'member_name' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'member_name' | translate}}"  name="member_name" [(ngModel)]="member_name">
+              </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'country' | translate}}</label>
+                <!-- <input type="text" class="form-control" placeholder="Country"  name="country_member" [(ngModel)]="country_member"> -->
+                <select id="member_country" class="form-control select2-nosearch country" name="member_country" [(ngModel)]="member_country">
+                  <option value="">{{'country' | translate}}</option>
+                  <option value="{{country.id}}" *ngFor="let country of CountryList">{{country.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'region' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'region' | translate}}"  name="member_region" [(ngModel)]="member_region" id="member_region">
+                
+                <!-- <select id="member_region" class="form-control state" name="member_region" [(ngModel)]="member_region">
+                  <option value="">{{'region' | translate}}</option>
+                  <option value="{{state.id}}" *ngFor="let state of StateList">{{state.name}}</option>
+                </select> -->
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'city' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'city' | translate}}"  name="member_city" [(ngModel)]="member_city" id="member_city">
+                <!-- <select id="member_city" class="form-control" name="member_city" [(ngModel)]="member_city">
+                  <option value="">{{'city' | translate}}</option>
+                  <option value="{{city.id}}" *ngFor="let city of CityList">{{city.name}}</option>
+                </select> -->
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 col-lg-4">
+              <div class="form-group">
+                <label class="control-label">{{'membership_reg_no' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'membership_reg_no' | translate}}"  name="member_reg_no" [(ngModel)]="member_reg_no">
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="form-group">
+                <label class="control-label">{{'membership_date_reg' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'membership_date_reg' | translate}}"  id="member_date_reg" name="member_date_reg">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header border-0 mt-3">
+                <div class="lable-text ml-auto">
+                  <button class="btn-universal" (click)="updateMemberInfo()">{{'save_changes' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

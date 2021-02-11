@@ -1,0 +1,113 @@
+<section class="sec-authentication">
+	<div class="authentication-wrap">
+		<div class="authentication-content">
+			<div class="title"><span>{{'signup' | translate}}</span></div>
+			<form class="form-content">
+				<div class="form-group">
+					<div class="radio-group">
+						<div class="custom-radio">
+							<input type="radio" class="custom-radio-input" name="user_type" value="consultant" (click)="getRole('consultant')" [(ngModel)]="user_type"/>
+							<div class="custom-radio-label">{{'i_am_a_psychologist' | translate}}</div>
+						</div>
+						<div class="custom-radio ml-3">
+							<input type="radio" class="custom-radio-input" name="user_type" value="user" (click)="getRole('user')" [(ngModel)]="user_type"/>
+							<div class="custom-radio-label">{{'i_am_a_client' | translate}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-input-group">
+						<div class="icon"><i class="fal fa-fw fa-user"></i></div>
+						<input type="text" class="form-control" placeholder="{{'name' | translate}}" name="first_name" [(ngModel)]="first_name"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-input-group">
+						<div class="icon"><i class="fal fa-fw fa-user"></i></div>
+						<input type="text" class="form-control" placeholder="{{'surname' | translate}}" name="last_name" [(ngModel)]="last_name"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-input-group overflow-unset">
+						<div class="icon"><i class="fal fa-fw fa-clock"></i></div>
+						<div class="timezone dropdown">
+							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-toggle">
+								<span class="timezone-name">{{timezone?timezone:('select_timezone' | translate)}}</span>
+							</a>
+							<div class="dropdown-menu">
+								<div class="input-search">
+									<input type="text" class="form-control" placeholder="{{'search' | translate}}" name="timezone_search" (keyup)="autoSearch($event)"/>
+								</div>
+								<div class="dropdown-menu-wrap">
+									<ng-container  *ngFor="let zone of timeZones">
+										<a href="javascript:void(0)" class="dropdown-item" (click)="selectTimeZone(zone.zone,zone.id)">
+											<span class="timezone-name">{{zone.zone}}</span>
+										</a>
+									</ng-container>
+								</div>
+							</div>
+						</div>
+						<!-- <select class="form-control select2" name="timezone" id="timezone">
+							<option value="" disabled selected>{{'select_timezone' | translate}}</option>
+							<option value="{{zone.id}}" *ngFor="let zone of timeZones">{{zone.zone}}</option>
+						</select> -->
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-input-group">
+						<div class="icon"><i class="fal fa-fw fa-envelope"></i></div>
+						<input type="text" class="form-control" placeholder="{{'email' | translate}}" name="email" [(ngModel)]="email"/>
+					</div>
+				</div>
+				<!-- <div class="form-group">
+					<div class="icon"><i class="fal fa-fw fa-mobile"></i></div>
+						<select class="form-control select2" name="phonecode" id="phonecode">
+							<option value="" disabled selected>Select</option>
+							<option value="{{code.phonecode}}" *ngFor="let code of phoneCodeList">{{code.phonecode}} - {{code.name}}</option>
+						</select>
+				</div> -->
+
+				
+				<div class="form-group">
+					<div class="form-input-group">
+						<div class="icon"><i class="fal fa-fw fa-key"></i></div>
+						<input type="password" class="form-control" placeholder="{{'password' | translate}}" name="password" [(ngModel)]="password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-input-group">
+						<div class="icon"><i class="fal fa-fw fa-key"></i></div>
+						<input type="password" class="form-control" placeholder="{{'confirm_password' | translate}}" name="confirm_password" [(ngModel)]="confirm_password"/>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="checkbox-group">
+							<div class="custom-checkbox">
+								<input type="checkbox" name="checkbox-term" class="custom-checkbox-input" value="1"/>
+								<div class="custom-checkbox-label">{{'signup_term_privacy_text' | translate}} <a href="javascript:void(0)" [routerLink]="['/terms-conditions']"><u>{{'terms_text' | translate}}</u></a>.</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="checkbox-group">
+							<div class="custom-checkbox">
+								<input type="checkbox" name="checkbox-privacy" class="custom-checkbox-input" value="1"/>
+								<div class="custom-checkbox-label">{{'signup_term_privacy_text' | translate}} <a href="javascript:void(0)" [routerLink]="['/privacy-policy']"><u>{{'privacy_text' | translate}}</u></a>.</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group text-center">
+					<button type="button" class="btn-submit" (click)="register()">
+						<i class="fal fa-fw fa-sign-in-alt"></i>
+						<span>{{'signup' | translate}}</span>
+					</button>
+				</div>
+			</form>
+			<div class="authentication-options">{{'already_have_an_account' | translate}} <a href="javascript:void(0)" [routerLink]="['/login']">{{'signin_now' | translate}}</a></div>
+		</div>
+	</div>
+</section>

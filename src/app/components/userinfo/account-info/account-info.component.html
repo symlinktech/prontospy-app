@@ -1,0 +1,100 @@
+<section class="sec-dashboard" >
+  <div class="container container-bg">
+    <app-user-header [name]="'account_information' | translate"></app-user-header>
+    <div class="row position-relative">
+      <div class="col-md-3 col-lg-2">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="card-container">
+          <app-user-tab></app-user-tab>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header">
+                <div class="lable-text">{{'account_information' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label">{{'email' | translate}}</label>
+                <input type="email" class="form-control" placeholder="{{'email' | translate}}"  name="email" [(ngModel)]="email" readonly>
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">{{'profile_name' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'profile_name' | translate}}"  name="profile_name" [(ngModel)]="profile_name">
+              </div>
+            </div> -->
+          </div>
+          <div class="row form-row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">{{'old_password' | translate}}</label>
+                <input type="password" class="form-control" placeholder="{{'old_password' | translate}}"  name="old_password" [(ngModel)]="old_password">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">{{'new_password' | translate}}</label>
+                <input type="password" class="form-control" placeholder="{{'new_password' | translate}}"  name="new_password" [(ngModel)]="new_password">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">{{'confirm_password' | translate}}</label>
+                <input type="password" class="form-control" placeholder="{{'confirm_password' | translate}}"  name="confirm_password" [(ngModel)]="confirm_password">
+              </div>
+            </div>
+          </div>
+          <div class="row form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <div class="custom-checkbox">
+                    <input type="checkbox" name="checkbox-promotional_email_status" class="custom-checkbox-input"/>
+                    <div class="custom-checkbox-label">{{'promotional_email_status' | translate}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <div class="custom-checkbox">
+                    <input type="checkbox" name="checkbox-update_advice_email_status" class="custom-checkbox-input"/>
+                    <div class="custom-checkbox-label">{{'update_advice_email_status' | translate}}</div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <ng-template [ngIf]="role=='consultant'">
+            <div class="form-row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label">{{'status' | translate}}</label>
+                  <select class="form-control select2-nosearch" id="profile_status" [(ngModel)]="profile_status">
+                    <option value="1">Online</option>
+                    <option value="2">Offline</option>
+                    <option value="3" disabled>Busy</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="row">
+            <div class="col-md-6">
+              <button class="btn-universal-dark" (click)="closeAccount()">{{'close_my_account' | translate}}</button>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+             	<button class="btn-universal" (click)="updateAccountInfo()">{{'save_changes' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

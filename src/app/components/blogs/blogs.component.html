@@ -1,0 +1,27 @@
+<section class="page-banner" style="background-image: url(assets/img/banner/banner-02.jpg);">
+	<div class="container">
+		<div class="banner-content">
+			<div class="banner-title">{{'blog' | translate}}</div>
+		</div>
+	</div>
+</section>
+<section class="sec-blog">
+	<div class="container">
+		<div class="blog-wrap">
+			<div class="blog-item" *ngFor="let blog of blogList">
+				<div class="item-image">
+					<img src="{{blog.image}}" alt=""/>
+				</div>
+				<div class="item-content">
+					<div class="item-date">
+						<i class="far fa-fw fa-calendar-alt"></i>
+						<span>{{blog.created_at}}</span>
+					</div>
+					<div class="item-title">{{blog.title}}</div>
+					<div class="item-text">{{blog.short_description}}</div>
+					<a href="javascript:void(0)" class="item-link" (click)="blogDetails(blog)">Read Article</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

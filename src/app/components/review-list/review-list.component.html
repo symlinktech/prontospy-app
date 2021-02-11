@@ -1,0 +1,157 @@
+<section class="sec-consultant-details">
+	<div class="container">
+		<div class="consultant-details">
+			<div class="consultant-side-panel">
+				<div class="consultant">
+					<div class="consultant-image">
+						<img src="{{consultantDetails.image}}" alt="" onError="this.src='assets/img/profile-icon.png'" />
+					</div>
+					<div class="consultant-name">{{consultantDetails.profile_name}}</div>
+					<div class="consultant-designation">{{consultantDetails.professional_qualifications}}</div>
+				</div>
+				<div class="consultant-popularity">
+					<div class="rating-wrap">
+						<div class="rating">
+							<div class="back">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+							<div class="front" [ngStyle]="{'width':(consultantDetails.rating*20) + '%'}">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+						</div>
+						<div class="average-rating" *ngIf="consultantDetails.rating">
+							<span>{{consultantDetails.rating}}</span>
+						</div>
+					</div>
+					<div class="review-count">
+						<div class="count">{{(Reviews?.length>0)?Reviews?.length:'0'}}</div>
+						<div class="title">{{'reviews' | translate}}</div>
+					</div>
+				</div>
+				<div class="consultant-status">
+					<div class="status {{(consultantDetails.user_consultant_services && (consultantDetails.user_consultant_services.indexOf('1')> -1) && (consultantDetails.appointment_id==null) && consultantDetails.active_status==1)?'online':(consultantDetails.user_consultant_services && (consultantDetails.user_consultant_services.indexOf('1')> -1) && (consultantDetails.appointment_id))?'busy':''}}" >
+						<div class="icon"></div>
+						<div class="text">{{(consultantDetails.user_consultant_services && (consultantDetails.user_consultant_services.indexOf('1')> -1) && (consultantDetails.appointment_id==null) && consultantDetails.active_status==1)?'Online':(consultantDetails.user_consultant_services && (consultantDetails.user_consultant_services.indexOf('1')> -1) && (consultantDetails.appointment_id))?'Busy':'Offline'}}</div>
+					</div>
+				</div>
+				<!-- <div class="consultant-meta" *ngIf="price || consultantDetails.language_names">
+					<div class="consultant-rate">{{price | currency:currency}}<small>/min</small></div>
+					<div class="consultant-language">{{consultantDetails.language_names}}</div>
+				</div> -->
+				<!-- <a href="javascipt:void(0)" class="btn-wishlist" (click)="addWishlist()" *ngIf="consultantDetails.wishlist_id==null"><i class="fal fa-fw fa-heart"></i></a>
+				<a href="javascipt:void(0)" class="btn-wishlist" *ngIf="consultantDetails.wishlist_id"><i class="fas fa-fw fa-heart"></i></a> -->
+			</div>
+			<div class="consultant-details-panel">
+<div class="consultant-reviews" *ngIf="Reviews?.length>0">
+	<div class="title">{{'reviews' | translate}}</div>
+	<div class="overall-rating">
+		<div class="item">
+			<div class="item-name">{{'comunication' | translate}}</div>
+			<div class="item-rating">
+				<div class="rating">
+					<div class="back">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+					</div>
+					<div class="front" [ngStyle]="{'width':(empathy_and_flexibility*20) + '%'}">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="item">
+			<div class="item-name">{{'empathy_and_flexibilit' | translate}}</div>
+			<div class="item-rating">
+				<div class="rating">
+					<div class="back">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+					</div>
+					<div class="front" [ngStyle]="{'width':(communication*20) + '%'}">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="item">
+			<div class="item-name">{{'reliable_and_trustworth' | translate}}</div>
+			<div class="item-rating">
+				<div class="rating">
+					<div class="back">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+					</div>
+					<div class="front" [ngStyle]="{'width':(reliable_and_trustworthy*20) + '%'}">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="review-list">
+		<div class="item" *ngFor="let review of Reviews">
+			<div class="item-image">
+				<img src="{{review.image}}" alt=""/>
+			</div>
+			<div class="item-content">
+				<div class="item-name">{{review.first_name}} {{(review.middle_name)?review.middle_name:''}} {{review.last_name}}</div>
+				<div class="item-rating">
+					<div class="rating">
+						<div class="back">
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+						</div>
+						<div class="front" [ngStyle]="{'width':(review.rating*20) + '%'}">
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+						</div>
+					</div>
+				</div>
+				<div class="item-comments">{{review.personal_experience}}</div>
+				<div class="item-date">{{review.created_at | date:'dd MMM yyyy'}}</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</section>

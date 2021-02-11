@@ -1,0 +1,106 @@
+<header>
+	<div class="header-top-wrap">
+		<div class="container">
+			<div class="header-top-content">
+				<div class="contact">
+					<a href="mailto:info@prontospy.com" class="item">
+						<i class="fas fa-fw fa-envelope"></i>
+						<span>{{Settings.email}}</span>
+					</a>
+					<a href="tel:{{Settings.customer_support}}" class="item">
+						<i class="fas fa-fw fa-phone fa-flip-horizontal"></i>
+						<span>{{Settings.customer_support}}</span>
+					</a>
+				</div>
+				<div class="social">
+					<a href="{{Settings.facebook_link}}" class="item" target="_blank"><i class="fab fa-fw fa-facebook"></i></a>
+					<a href="{{Settings.twitter_link}}" class="item" target="_blank"><i class="fab fa-fw fa-twitter"></i></a>
+					<a href="{{Settings.google_plus_link}}" class="item" target="_blank"><i class="fab fa-fw fa-google"></i></a>
+					<a href="{{Settings.instagram_link}}" class="item" target="_blank"><i class="fab fa-fw fa-instagram"></i></a>
+				</div>
+				<div class="language dropdown">
+					<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-toggle">
+						<span class="flag"><img src="{{flag_image}}" alt="English"/></span>
+						<span class="language-name">{{language_name}}</span>
+					</a>
+					<div class="dropdown-menu">
+						<a href="javascript:void(0)" class="dropdown-item" (click)="changeLanguage('en')" id="en">
+							<span class="flag"><img src="assets/img/gb.svg" alt="English"/></span>
+							<span class="language-name">English</span>
+						</a>
+						<a href="javascript:void(0)" class="dropdown-item" (click)="changeLanguage('it')" id="it">
+							<span class="flag"><img src="assets/img/it.svg" alt="Italian"/></span>
+							<span class="language-name">Italian</span>
+						</a>
+						<a href="javascript:void(0)" class="dropdown-item" (click)="changeLanguage('es')" id="es">
+							<span class="flag"><img src="assets/img/es.svg" alt="Spanish"/></span>
+							<span class="language-name">Spanish</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header-bottom-wrap">
+		<div class="container">
+			<div class="header-bottom-content">
+				<div class="brand">
+					<a href="javascript:void(0)" class="logo" routerLink="">
+						<img src="assets/img/logo.png" alt="Logo"/>
+					</a>
+				</div>
+				<div class="navigation">
+					<div class="navigation-wrap">
+						<ul class="navigation-menu">
+							<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a href="javascript:void(0)" class="menu-item" routerLink="">{{'what_is_prontospy' | translate}}</a></li>
+							<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a class="menu-item" href="javascript:void(0)" [routerLink]="['/consultants']">{{'find_a_psycho' | translate}}</a></li>
+							<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a href="javascript:void(0)" class="menu-item" [routerLink]="['/how-it-works']">{{'how_it_works' | translate}}</a></li>
+							<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a class="menu-item" [routerLink]="['/blogs']">{{'blogs' | translate}}</a></li>
+						</ul>
+						<ul class="authentication-menu">
+							<li class="signin" *ngIf="isLoggedStorage=='false'"><a href="javascript:void(0)" class="menu-item" [routerLink]="['/login']">{{'signin' | translate}}</a></li>
+							<li *ngIf="isLoggedStorage=='false'"><a href="javascript:void(0)" class="menu-item" [routerLink]="['/register']">{{'signup' | translate}}</a></li>
+
+							<li class="user-account" *ngIf="isLoggedStorage=='true' && role=='consultant'"><a href="javascript:void(0)" class="menu-item" [routerLink]="['/account/consultant/myprofile/personal-info']"><div class="user-img"><img src="{{userImage}}" alt="" onError="this.src='assets/img/profile-icon.png'"/></div><span>{{'myaccount' | translate}}</span></a></li>
+
+							<li class="user-account" *ngIf="isLoggedStorage=='true' && role=='user'"><a href="javascript:void(0)" class="menu-item" [routerLink]="['/account/client/myprofile/personal-info']"><div class="user-img"><img src="{{userImage}}" alt="" onError="this.src='assets/img/profile-icon.png'"/></div><span>{{'myaccount' | translate}}</span></a></li>
+
+							<li class="notification dropdown" *ngIf="isLoggedStorage=='true'">
+								<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fas fa-fw fa-bell m-auto"></i>
+									<span class="count" id="notificationCount">{{(notificationList?.length>99)?'99+':notificationList?.length}}</span>
+								</a>
+								<div class="dropdown-menu" id="notificationList" x-placement="top-start">
+									<ng-template [ngIf]="notificationList?.length>0" [ngIfElse]="noti_none">
+										<div class="noti-wrap">
+											<div class="noti-item" id="notiItem_{{notification.id}}" *ngFor="let notification of notificationList;let i=index">
+												<a href="javascript:void(0)" class="img-container">
+													<img src="{{baseUrl+notification.image}}" alt="" onError="this.src='assets/img/profile-icon.png'"/>
+												</a>
+												<div class="noti-content">
+													<a href="javascript:void(0)" class="noti-title">{{notification.profile_name}}</a>
+													<a href="javascript:void(0)" class="noti-text">{{notification.message}}
+													</a>
+													<a href="javascript:void(0)" class="noti-date">{{notification.created_at}}</a>
+													<a href="javascript:void(0)" class="noti-close" (click)="clearNoti(notification.id,i)">&times;</a></div>
+												</div>
+										</div>
+										<a href="javascript:void(0)" class="noti-clear" (click)="clearNoti(0,'')">{{'clear_all' | translate}}</a>
+									</ng-template>
+									<ng-template #noti_none>
+										<div class="noti-none">
+											<i class="fal fa-fw fa-bell"></i>
+											<div class="text">{{'no_notifications' | translate}}</div>
+										</div>
+									</ng-template>
+								</div>
+							</li>
+						</ul>
+						<a href="javascript:void(0)" class="btn-menu"><i class="fal fa-fw fa-bars"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="menu-backdrop"></div>
+</header>

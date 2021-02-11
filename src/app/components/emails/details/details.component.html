@@ -1,0 +1,83 @@
+<section class="sec-dashboard" >
+	<div class="container container-bg">
+		<app-user-header [name]="'email_details' | translate"></app-user-header>
+		<div class="row position-relative">
+			<div class="col-md-3 col-lg-2">
+				<app-user-sidebar></app-user-sidebar>
+			</div>
+			<div class="col-sm-12 col-md-9 col-lg-10">
+				<div class="card-container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="sec-myaccount-header">
+								<div class="lable-text">{{'email_details' | translate}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="message-details">
+								<div class="message-body">
+									<div class="message {{(user_id==email.sender_id)?'message-right':''}}" *ngFor="let email of EmailList">
+										<div class="message-image"><img src="{{(user_id==email.sender_id)?email.sender_image:((user_id==email.receiver_id)?email.sender_image:email.receiver_image)}}" alt="" onError="this.src='assets/img/profile-icon.png'"/></div>
+										<div class="message-content">
+											<div class="message-user">{{(user_id==email.sender_id)?email.sender_name:((user_id==email.receiver_id)?email.sender_name:email.receiver_name)}}</div>
+											<div class="message-text-list">
+												<div class="message-text-wrap">
+													<div class="message-text">{{email.description}}</div>
+												</div>
+											</div>
+											<div class="message-date">{{email.created_at | date:'hh:mm a | MMM dd'}}</div>
+										</div>
+									</div>
+								</div>
+								<div class="message-footer">
+									<div class="message-form">
+										<div class="input-wrap">
+											<textarea class="form-control" placeholder="Type your Message....." [(ngModel)]="email_text"></textarea>
+										</div>
+										<div class="input-action">
+											<a href="javascript:void(0)" class="btn-action" (click)="replyMail()"><i class="fas fa-fw fa-paper-plane"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						
+						
+							<!--<a href="javascript:void(0)" class="list-card-link">
+								<div class="list-card">
+									<div class="date-time-wrapper">
+										<div class="sec-date-time">
+											<span class="date-cont">{{email.created_at | date:'dd'}}</span>
+											<span class="time-month">{{email.created_at | date:'MMM'}}</span>
+											<span class="time-cont">{{email.created_at | date:'h:mm a'}}</span>
+										</div>
+									</div>
+									<div class="list-title">
+										{{email.profile_name}}
+										<small>{{email.description}}</small>
+									</div>
+									<div class="status-wrapper"><span class="status status-active" (click)="showDiv()">{{'reply' | translate}}</span></div>
+								</div>
+							</a>
+							<div class="reply d-none">
+								<div class="form-row">
+									<div class="form-group col-md-12">
+									  <textarea class="form-control" placeholder="Enter text"  name="email_text" [(ngModel)]="email_text"></textarea> 
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="sec-myaccount-header border-0 mt-3">
+											<div class="lable-text ml-auto"><button class="btn btn-info" (click)="replyMail(email.sender_id,email.receiver_id)">{{'save_changes' | translate}}</button></div>
+										</div>
+									</div>
+								</div>
+							</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,118 @@
+<section class="sec-dashboard" >
+	<div class="container container-bg">
+		<app-user-header [name]="name | translate"></app-user-header>
+		<div class="row position-relative">
+			<div class="col-md-3 col-lg-2">
+				<app-user-sidebar></app-user-sidebar>
+			</div>
+			<div class="col-md-9 col-lg-10">
+				<div class="card-container">
+					<div class="row">
+						<div class="col-sm-6 col-lg-4">
+							<div class="statistics-card" >
+								<div class="row">
+									<div class="col-md-6">
+										<div class="statistics-icon statistics-color-1 rounded-circle border">
+											<i class="fal fa-calendar-check"></i>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="statistics-text text-right">
+											<div class="desc mb-2">{{past_appointment}}</div>
+											<div class="title">{{'past_appointments' | translate}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-4">
+							<div class="statistics-card" >
+								<div class="row">
+									<div class="col-md-6">
+										<div class="statistics-icon statistics-color-1 rounded-circle border">
+											<i class="fal fa-clock"></i>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="statistics-text text-right">
+											<div class="desc mb-2">{{upcoming_appointment}}</div>
+											<div class="title">{{'upcoming_appointments' | translate}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- <div class="col-sm-6 col-lg-4">
+							<div class="statistics-card" >
+								<div class="row">
+									<div class="col-md-6">
+										<div class="statistics-icon statistics-color-4 rounded-circle border">
+											<i class="fal fa-user-md"></i>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="statistics-text text-right ">
+											<div class="desc mb-2">50</div>
+											<div class="title">Online consultation</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+						<!-- <div class="col-sm-6 col-lg-4">
+							<div class="statistics-card" >
+								<div class="row">
+									<div class="col-md-6">
+										<div class="statistics-icon statistics-color-2 rounded-circle border">
+											<i class="fal fa-pills"></i>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="statistics-text text-right">
+											<div class="desc mb-2">300</div>
+											<div class="title">Medicine record</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+						<div class="col-sm-6 col-lg-4" *ngIf="role=='consultant'">
+							<div class="statistics-card" >
+								<div class="row">
+									<div class="col-md-6">
+										<div class="statistics-icon statistics-color-3 rounded-circle border">
+											<i class="fal fa-comment-alt-check"></i>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="statistics-text text-right">
+											<div class="desc mb-2">{{feedback}}</div>
+											<div class="title">{{'reviews' | translate}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- <div class="col-sm-6 col-lg-4">
+							<div class="statistics-card" >
+								<div class="row">
+									<div class="col-md-6">
+										<div class="statistics-icon statistics-color-1 rounded-circle border">
+											<i class="fal fa-wallet"></i>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="statistics-text text-right">
+											<div class="desc mb-2">2000</div>
+											<div class="title">{{'transactions' | translate}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

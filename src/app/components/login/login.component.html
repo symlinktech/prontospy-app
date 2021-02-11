@@ -1,0 +1,48 @@
+<section class="sec-authentication">
+	<div class="authentication-wrap">
+		<div class="authentication-content">
+			<div class="title"><span>{{'signin' | translate}}</span></div>
+			<form class="form-content">
+				<div class="form-group">
+					<div class="form-input-group">
+						<div class="icon"><i class="fal fa-fw fa-user"></i></div>
+						<input type="text" class="form-control" placeholder="{{'email' | translate}}" name="email" [(ngModel)]="email" id="email"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-input-group">
+						<div class="icon"><i class="fal fa-fw fa-key"></i></div>
+						<input type="password" class="form-control" placeholder="{{'password' | translate}}" name="password" [(ngModel)]="password" id="password"/>
+					</div>
+				</div>
+				<div class="form-options">
+					<div class="custom-checkbox">
+						<input type="checkbox" class="custom-checkbox-input" name="checkbox-01" id="remember_me_check" />
+						<div class="custom-checkbox-label">{{'remember_me' | translate}}</div>
+					</div>
+					<a href="javascript:void(0)" class="btn-fogot-password" [routerLink]="['/forgot-password']">{{'forgot_password' | translate}}</a>
+				</div>
+				<div class="form-group text-center">
+					<button type="button" class="btn-submit" (click)="Signin()">
+						<i class="fal fa-fw fa-sign-in"></i>
+						<span>{{'signin' | translate}}</span>
+					</button>
+				</div>
+				<div class="social-login">
+					<div class="btn-facebook">
+						<div class="icon"><img src="assets/img/logo_facebook.svg" alt=""/></div>
+						<div class="title">Continue with Facebook</div>
+					</div>
+					<div class="btn-google">
+						<div class="icon"><img src="assets/img/logo_google.svg" alt=""/></div>
+						<div class="title">Continue with Google</div>
+					</div>
+				</div>
+			</form>
+			<div class="authentication-options">{{'dont_have_an_account' | translate}} <a [routerLink]="['/register']">{{'signup_now' | translate}}</a></div>
+		</div>
+	</div>
+</section>
+<div class=loader *ngIf="showspinner==true">
+  <div class="preloader"><span></span><span></span><span></span><span></span><span></span></div>
+</div>

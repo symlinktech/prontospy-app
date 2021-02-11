@@ -1,0 +1,326 @@
+<section class="sec-dashboard" >
+	<div class="container container-bg">
+		<app-user-header [name]="'appointments' | translate"></app-user-header>
+		<div class="row position-relative">
+			<div class="col-md-3 col-lg-2">
+				<app-user-sidebar></app-user-sidebar>
+			</div>
+			<div class="col-sm-12 col-md-9 col-lg-10">
+				<div class="card-container">
+					<div class="row">
+					  <div class="col-md-12">
+					    <div class="card-nav">
+					      <nav class="nav nav-pills nav-fill">
+					        <a class="nav-item nav-link active" href="javascript:void(0)" (click)="showDiv('past')">{{'past_appointments' | translate}}</a>
+					        <!-- <a class="nav-item nav-link" href="javascript:void(0)" (click)="showDiv('in_progress')">{{'in_progress_appointment' | translate}}</a> -->
+					        <a class="nav-item nav-link" href="javascript:void(0)" (click)="showDiv('upcoming')">{{'upcoming_appointments' | translate}}</a>
+					        </nav>
+					    </div> 
+					  </div>
+					</div>
+					<div class="row d-none" id="past">
+						<div class="col-md-12">
+							<div class="list-card-link">
+								<ng-container *ngFor="let appointment of appointmentList;let i=index">
+									<ng-template [ngIf]="appointment.past==true">
+										<div class="list-card">
+											<div class="date-time-wrapper" (click)="details(appointment.id,appointment.consultant_id)">
+												<div class="sec-date-time">
+													<ng-template [ngIf]="role=='user'">
+														<span class="date-cont">{{appointment.user_start_time | date:'dd'}}</span>
+													</ng-template>
+													<ng-template [ngIf]="role=='consultant'">
+														<span class="date-cont">{{appointment.consultant_start_time | date:'dd'}}</span>
+													</ng-template>
+													<!-- <span class="date-cont">{{appointment.created_at}}</span>
+													<span class="date-cont">{{appointment.created_at | date:'short':'-7200'}}</span> -->
+													<span class="time-month">{{appointment.appointment_date | date:'MMM'}}</span>
+													<ng-template [ngIf]="role=='user'">
+													<span class="time-cont">{{appointment.user_start_time| date:'HH:mm'}} - {{appointment.user_end_time| date:'HH:mm'}}</span>
+													</ng-template>
+													<ng-template [ngIf]="role=='consultant'">
+													<span class="time-cont">{{appointment.consultant_start_time | date:'HH:mm'}} - {{appointment.consultant_end_time | date:'HH:mm'}}</span>
+													</ng-template>
+												</div>
+											</div>
+											<div class="list-title" (click)="details(appointment.id,appointment.consultant_id)">
+												{{'you_had_appointment_with' | translate}} {{(role=='consultant')?appointment.user_profile_name:appointment.consultant_profile_name}}
+												<span class="list-amount">{{'payment_amount' | translate}}: {{appointment.currency}} {{appointment.amount}}</span>
+												<span class="list-payment-status">{{'payment_status' | translate}}: {{(appointment.payment_status==1)?'Pending':(appointment.payment_status==2)?'Authorized':(appointment.payment_status==3)?'Captured':(appointment.payment_status==4)?'Authorize Failed':(appointment.payment_status==5)?'Payment Released':(appointment.payment_status==6)?'Capture Failed':'N/A'}}</span>
+												<span class="list-payment-status">{{'appointment_id' | translate}}: {{appointment.appointment_id}}</span>
+											</div>
+											<div class="action-wrapper">
+												<span class="status status-active">{{(appointment.status==1)?('active' | translate):(appointment.status==2)?('cancel' | translate):(appointment.status==3)?('closed' | translate):('in_progress' | translate)}}</span>
+												<div class="other-actions">
+													<a href="javascript:void(0)" class="btn-action" *ngIf="appointment.join==true" (click)="goToCall(appointment)">{{'join' | translate}}</a>
+													<ng-template [ngIf]="role=='user'">
+														<a href="javascript:void(0)" class="btn-action" *ngIf="appointment.status==3 && appointment.review_id==null" (click)="addReview(appointment.id,appointment.consultant_id)">{{'add_review' | translate}}</a>
+													</ng-template>
+												</div>
+												<ng-template [ngIf]="(appointment.appointment_type==2 && appointment.user_id==login_user_id && appointment.start_call==true)">
+													<div class="communication-actions" *ngIf="appointment.service_type==2">
+														<a href="javascript:void(0)" class="btn-action" (click)="startConversation('2',appointment)">{{'voice' | translate}}</a>
+													</div>
+													<div class="communication-actions" *ngIf="appointment.service_type==1">
+														<a href="javascript:void(0)" class="btn-action" (click)="startConversation('1',appointment)">{{'chat' | translate}}</a>
+													</div>
+													<div class="communication-actions" *ngIf="appointment.service_type==3">
+														<a href="javascript:void(0)" class="btn-action" (click)="startConversation('3',appointment)">{{'video' | translate}}</a>
+													</div>
+												</ng-template>
+											</div>
+											<ng-template [ngIf]="((appointment.payment_status==1) || (appointment.payment_status==4))">
+												<a href="javascript:void(0)" class="btn-action" (click)="removeAppoinment(appointment.id,i)"><i class="fal fa-fw fa-trash-alt"></i></a>
+											</ng-template>
+										</div>
+									</ng-template>
+								</ng-container>
+							</div>
+							<div class="nodata-wrap" *ngIf="pastCount==0">
+								<div class="nodata-content">
+									<div class="icon">
+										<span class="fa-stack fa-2x">
+											<i class="fal fa-fw fa-stack-2x fa-circle"></i>
+											<i class="fal fa-fw fa-stack-2x fa-slash" style="opacity: 0.5"></i>
+											<i class="fas fa-fw fa-stack-1x fa-list"></i>
+										</span>
+									</div>
+									<div class="nodata-title">{{'no_data_found' | translate}}</div>
+									<div class="nodata-text">{{'it_seems_no_data_found' | translate}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="row d-none" id="in_progress">
+						<div class="col-md-12">
+							<div class="list-card-link">
+								<ng-container *ngFor="let appointment of appointmentList;let i=index">
+									<ng-template [ngIf]="appointment.status==4">
+										<div class="list-card">
+											<div class="date-time-wrapper" (click)="details(appointment.id,appointment.consultant_id)">
+												<div class="sec-date-time">
+													<ng-template [ngIf]="role=='user'">
+														<span class="date-cont">{{appointment.user_start_time | date:'dd'}}</span>
+													</ng-template>
+													<ng-template [ngIf]="role=='consultant'">
+														<span class="date-cont">{{appointment.consultant_start_time | date:'dd'}}</span>
+													</ng-template>
+													<span class="time-month">{{appointment.appointment_date | date:'MMM'}}</span>
+													<ng-template [ngIf]="role=='user'">
+													<span class="time-cont">{{appointment.user_start_time| date:'HH:mm'}} - {{appointment.user_end_time| date:'HH:mm'}}</span>
+													</ng-template>
+													<ng-template [ngIf]="role=='consultant'">
+													<span class="time-cont">{{appointment.consultant_start_time | date:'HH:mm'}} - {{appointment.consultant_end_time | date:'HH:mm'}}</span>
+													</ng-template>
+												</div>
+											</div>
+											<div class="list-title" (click)="details(appointment.id,appointment.consultant_id)">
+												{{'you_had_appointment_with' | translate}} {{(role=='consultant')?appointment.user_profile_name:appointment.consultant_profile_name}}
+												<span class="list-amount">{{'payment_amount' | translate}}: {{appointment.currency}} {{appointment.amount}}</span>
+												<span class="list-payment-status">{{'payment_status' | translate}}: {{(appointment.payment_status==1)?'Pending':(appointment.payment_status==2)?'Authorized':(appointment.payment_status==3)?'Captured':(appointment.payment_status==4)?'Authorize Failed':(appointment.payment_status==5)?'Payment Released':(appointment.payment_status==6)?'Capture Failed':'N/A'}}</span>
+												<span class="list-payment-status">{{'appointment_id' | translate}}: {{appointment.appointment_id}}</span>
+											</div>
+											<div class="action-wrapper">
+												<span class="status status-active">{{(appointment.status==1)?('active' | translate):(appointment.status==2)?('cancel' | translate):(appointment.status==3)?('closed' | translate):('in_progress' | translate)}}</span>
+												<div class="other-actions">
+													<a href="javascript:void(0)" class="btn-action" *ngIf="appointment.join==true" (click)="goToCall(appointment)">{{'join' | translate}}</a>
+													<ng-template [ngIf]="role=='user'">
+														<a href="javascript:void(0)" class="btn-action" *ngIf="appointment.status==3 && appointment.review_id==null" (click)="addReview(appointment.id,appointment.consultant_id)">{{'add_review' | translate}}</a>
+													</ng-template>
+												</div>
+												<ng-template [ngIf]="(appointment.appointment_type==2 && appointment.user_id==login_user_id && appointment.start_call==true)">
+													<div class="communication-actions" *ngIf="appointment.service_type==2">
+														<a href="javascript:void(0)" class="btn-action" (click)="startConversation('2',appointment)">{{'voice' | translate}}</a>
+													</div>
+													<div class="communication-actions" *ngIf="appointment.service_type==1">
+														<a href="javascript:void(0)" class="btn-action" (click)="startConversation('1',appointment)">{{'chat' | translate}}</a>
+													</div>
+													<div class="communication-actions" *ngIf="appointment.service_type==3">
+														<a href="javascript:void(0)" class="btn-action" (click)="startConversation('3',appointment)">{{'video' | translate}}</a>
+													</div>
+												</ng-template>
+											</div>
+											<ng-template [ngIf]="((appointment.payment_status==1) || (appointment.payment_status==4))">
+												<a href="javascript:void(0)" class="btn-action" (click)="removeAppoinment(appointment.id,i)"><i class="fal fa-fw fa-trash-alt"></i></a>
+											</ng-template>
+										</div>
+									</ng-template>
+								</ng-container>
+							</div>
+							<div class="nodata-wrap" *ngIf="pastCount==0">
+								<div class="nodata-content">
+									<div class="icon">
+										<span class="fa-stack fa-2x">
+											<i class="fal fa-fw fa-stack-2x fa-circle"></i>
+											<i class="fal fa-fw fa-stack-2x fa-slash" style="opacity: 0.5"></i>
+											<i class="fas fa-fw fa-stack-1x fa-list"></i>
+										</span>
+									</div>
+									<div class="nodata-title">{{'no_data_found' | translate}}</div>
+									<div class="nodata-text">{{'it_seems_no_data_found' | translate}}</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<div class="row d-none" id="upcoming">
+						<div class="col-md-12">
+							<div class="list-card-link">
+								<ng-container *ngFor="let appointment of appointmentList;let i=index">
+									<ng-template [ngIf]="appointment.future==true">
+										<div class="list-card">
+											<div class="date-time-wrapper"  (click)="details(appointment.id,appointment.consultant_id)">
+												<div class="sec-date-time">
+													<ng-template [ngIf]="role=='user'">
+														<span class="date-cont">{{appointment.user_start_time | date:'dd'}}</span>
+													</ng-template>
+													<ng-template [ngIf]="role=='consultant'">
+														<span class="date-cont">{{appointment.consultant_start_time | date:'dd'}}</span>
+													</ng-template>
+													<span class="time-month">{{appointment.appointment_date | date:'MMM'}}</span>
+													<ng-template [ngIf]="role=='user'">
+													<span class="time-cont">{{appointment.user_start_time| date:'HH:mm'}} - {{appointment.user_end_time| date:'HH:mm'}}</span>
+													</ng-template>
+													<ng-template [ngIf]="role=='consultant'">
+													<span class="time-cont">{{appointment.consultant_start_time | date:'HH:mm'}} - {{appointment.consultant_end_time | date:'HH:mm'}}</span>
+													</ng-template>
+												</div>
+											</div>
+											<div class="list-title"  (click)="details(appointment.id,appointment.consultant_id)">
+												{{'you_have_appointment_with' | translate}} {{(role=='consultant')?appointment.user_profile_name:appointment.consultant_profile_name}}
+												<span class="list-amount">{{'payment_amount' | translate}}: {{appointment.currency}} {{appointment.amount}}</span>
+												<span class="list-payment-status">{{'payment_status' | translate}}: {{(appointment.payment_status==1)?'Pending':(appointment.payment_status==2)?'Authorized':(appointment.payment_status==3)?'Captured':(appointment.payment_status==4)?'Authorize Failed':(appointment.payment_status==5)?'Payment Released':'N / A'}}</span>
+												<span class="list-payment-status">{{'appointment_id' | translate}}: {{appointment.appointment_id}}</span>
+											</div>
+											<div class="action-wrapper">
+												<span class="status status-active">{{(appointment.status==1)?('active' | translate):(appointment.status==2)?('cancel' | translate):(appointment.status==3)?('closed' | translate):('in_progress' | translate)}}</span>
+												<div class="other-actions">
+													<a href="javascript:void(0)" class="btn-action" *ngIf="appointment.join==true" (click)="goToCall(appointment)">{{'join' | translate}}</a>
+													<ng-template [ngIf]="role=='user'">
+														<a href="javascript:void(0)" class="btn-action" *ngIf="appointment.status==3 && appointment.review_id==null" (click)="addReview(appointment.id,appointment.consultant_id)">{{'add_review' | translate}}</a>
+													</ng-template>
+													<ng-template *ngIf="role=='user' && appointment.status==1 && appointment.join!=true">
+														<a href="javascript:void(0)" class="btn-action" (click)="getServiceAppoint(appointment.consultant_id,appointment.id,appointment.appointment_date,appointment.service_type)">{{'edit' | translate}}</a>
+													</ng-template>
+												</div>
+												<ng-template [ngIf]="appointment.appointment_type==2 && appointment.user_id==login_user_id && appointment.start_call==true">
+													<div class="communication-actions" *ngIf="appointment.service_type==2">
+														<a href="javascript:void(0)" class="btn-action" (click)="startConversation('2',appointment)">{{'voice' | translate}}</a>
+													</div>
+													<div class="communication-actions" *ngIf="appointment.service_type==1">
+														<a href="javascript:void(0)" class="btn-action" (click)="startConversation('1',appointment)">{{'chat' | translate}}</a>
+													</div>
+													<div class="communication-actions" *ngIf="appointment.service_type==3">
+														<a href="javascript:void(0)" class="btn-action" (click)="startConversation('3',appointment)">{{'video' | translate}}</a>
+													</div>
+												</ng-template>
+											</div>
+											<ng-template [ngIf]="((appointment.payment_status==1) || (appointment.payment_status==4))">
+											<a href="javascript:void(0)" class="btn-action" (click)="removeAppoinment(appointment.id,i)"><i class="fal fa-fw fa-trash-alt"></i></a>
+										</ng-template>
+										</div>
+									</ng-template>
+								</ng-container>
+							</div>
+							<div class="nodata-wrap" *ngIf="futureCount==0">
+								<div class="nodata-content">
+									<div class="icon">
+										<span class="fa-stack fa-2x">
+											<i class="fal fa-fw fa-stack-2x fa-circle"></i>
+											<i class="fal fa-fw fa-stack-2x fa-slash" style="opacity: 0.5"></i>
+											<i class="fas fa-fw fa-stack-1x fa-list"></i>
+										</span>
+									</div>
+									<div class="nodata-title">{{'no_data_found' | translate}}</div>
+									<div class="nodata-text">{{'it_seems_no_data_found' | translate}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal book_appointment fade" id="book_appointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{'book_an_appointment' | translate}}</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" #closeBtn>×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          	<div class="row">
+          		<div class="col-md-12">
+					<div class="form-group">
+						<label class="control-label">{{'select_service_type' | translate}}</label>
+						<select class="form-control select2" id="service_type_select">
+							<ng-container *ngFor="let mode of service_mode;let i=index">
+									<option value="{{(mode=='1')?'1':(mode=='2')?'2':'3'}}">{{(mode=='1')?('chat' | translate):(mode=='2')?('voice' | translate):('video_conversation' | translate)}}</option>
+								</ng-container>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="control-label">{{'select_date' | translate}}</label>
+						<input type="text" class="form-control" id="booking_date" placeholder="{{'select_date' | translate}}" name="booking_date" autocomplete="off" readonly/>
+					</div>
+				</div>
+			</div>
+			<div class="pricing-table">
+				<div class="item item-header">
+					<div class="item-service">{{'service_name' | translate}}</div>
+					<div class="item-cost">{{'cost' | translate}}</div>
+					<div class="item-mode">{{'mode' | translate}}</div>
+				</div>
+				<div class="item">
+					<div class="item-service">{{service_name}}</div>
+					<div class="item-cost">{{service_price}} {{service_currency}} /min</div>
+					<div class="item-mode">
+						<ng-container *ngFor="let mode of service_mode;let last=last">
+							<span>{{(mode=='1')?'Audio':(mode=='2')?'Chat':'Video'}}{{(last)?'':', '}}</span>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			<ng-template [ngIf]="TimeSlot?.length>0">
+				<div class="form-group">
+					<label class="control-label">{{'available_time_slot' | translate}}</label>
+					<div class="radio-group">
+						<div class="custom-radio" *ngFor="let timeslot of TimeSlot">
+							<input type="radio" name="radio-01" class="custom-radio-input" (click)="getTime(timeslot.start,timeslot.end)" value="{{timeslot.start}}" />
+							<div class="custom-radio-label">{{timeslot.converted_start_time}} - {{timeslot.converted_end_time}}</div>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template [ngIf]="TimeSlot?.length>0">
+				<div class="form-group">
+					<button class="btn btn-universal" (click)="bookAppoint()">{{'book_appointment' | translate}}</button>
+				</div>
+			</ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+<div class="modal conversation_modal fade" id="conversation_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">{{'star_conversation' | translate}}</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" #closeBtn>×</span> </button>
+			</div>
+			<div class="modal-body">
+				<div class="currency">{{'currency' | translate}}: {{currency}} </div>
+				<div class="price">{{'price' | translate}}: {{price}} / min</div>
+				<div class="mode">{{'modes' | translate}}: <span>{{(instantCommuType=='1')?('chat' | translate):(instantCommuType=='2')?('voice' | translate):('video' | translate)}}</span></div>
+				<div class="description">{{'calling_msg' | translate}}</div>
+				<div class="form-group mb-0 mt-3">
+					<button class="btn-universal" (click)="this[action]()" [disabled]="calling_button_disable">{{calling_button_text | translate}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,63 @@
+<section class="sec-dashboard" >
+  <div class="container container-bg">
+    <app-user-header [name]="'insurance_information' | translate"></app-user-header>
+    <div class="row position-relative">
+      <div class="col-md-3 col-lg-2">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="card-container">
+          <app-user-tab></app-user-tab>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header">
+                <div class="lable-text">{{'insurance_information' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12 col-lg-6">
+              <div class="form-group">
+                <label class="control-label">{{'insurance_company_name' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'insurance_company_name' | translate}}"  name="insurance_company_name" [(ngModel)]="insurance_company_name" [disabled]="ins_company_name">
+              </div>
+            </div>
+            <div class="col-6 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'insurance_number' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'insurance_number' | translate}}"  name="insurance_number" [(ngModel)]="insurance_number" [disabled]="ins_number">
+              </div>
+            </div>
+            <div class="col-6 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label class="control-label">{{'insurance_exp_date' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'insurance_exp_date' | translate}}"  name="insurance_expiration" id="insurance_expiration" [disabled]="ins_exp_date">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <div class="custom-checkbox">
+                    <input type="checkbox" name="checkbox-insurance_available_status" class="custom-checkbox-input" (change)="insCheck()"/>
+                    <div class="custom-checkbox-label">{{'insurance_available_status' | translate}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header border-0 mt-3">
+                <div class="lable-text ml-auto">
+                  <button class="btn-universal" (click)="updateInsuranceInfo()">{{'save_changes' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

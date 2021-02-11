@@ -1,0 +1,13 @@
+app-daily-time{
+	.schedule_list{}
+	.schedule_list+.schedule_list{margin-top: 10px;}
+	.schedule_list{
+		.schedule-row{position: relative;}
+		.schedule-row{
+			.schedule-title{font-size: 14px;font-weight: 500;text-transform: capitalize;background-color: rgba(48, 122, 213, 0.2);padding: 5px 10px;color: var(--primaryColor);margin: 0 0 5px;}
+			.schedule-half{font-size: 12px;text-transform: uppercase;font-weight: 500;border-bottom: 1px dashed rgba(0,0,0,0.1);}
+		}
+	}
+	.title{font-size:20px;font-weight:600;line-height:1;letter-spacing:-.5px;color:var(--primaryColor);word-break:break-all}
+	
+}

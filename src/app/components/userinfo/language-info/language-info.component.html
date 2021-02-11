@@ -1,0 +1,58 @@
+<section class="sec-dashboard" >
+  <div class="container container-bg">
+    <app-user-header [name]="'language_spoken' | translate"></app-user-header>
+    <div class="row position-relative">
+      <div class="col-md-3 col-lg-2">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="card-container">
+          <app-user-tab></app-user-tab>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header">
+                <div class="lable-text">{{'language_spoken' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label">{{'languages' | translate}}</label>
+                <div class="select-dropdown dropdown">
+                  <a href="javascript:void(0)" class="data-toggle" data-toggle="dropdown" title="{{title_value}}" id="lang_name">Select</a>
+                  <div class="dropdown-menu">
+                  <!--<div class="dropdown-search">
+                  <input type="text" class="form-control" name="" placeholder="Search..." />
+                  </div>-->
+                  <div class="dropdown-list">
+                    <div class="item" *ngFor="let language of LanguageList;let i=index">
+                      <div class="custom-radio">
+                        <input type="radio" class="custom-radio-input" [attr.data-value]="language.name" value="{{language.id}}" name="custom_language_checkbox" [checked]="language.checked">
+                        <label class="custom-radio-label">{{language.name}}</label>
+                      </div>
+                      {{(i==(LanguageList?.length-1))?initializeFun():''}}
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                <!-- <select id="spoken_lang" class="form-control select2" name="languages" multiple [(ngModel)]="spoken_lang">
+                  <option value="{{language.id}}" *ngFor="let language of LanguageList">{{language.name}}</option>
+                </select> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="sec-myaccount-header border-0 mt-3">
+                <div class="lable-text ml-auto">
+                  <button class="btn-universal" (click)="updateSpokenLangInfo()">{{'save_changes' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

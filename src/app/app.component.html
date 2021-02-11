@@ -1,0 +1,61 @@
+<audio id="myAudioCon" loop class="audio d-none">
+  <source src="assets/audio/incoming-call.mp3" type="audio/mpeg">
+  Your browser does not support the audio element. </audio>
+<audio id="myAudioUser" loop class="audio d-none">
+  <source src="assets/audio/phone-ringing-sound-effect.mp3" type="audio/mpeg">
+  Your browser does not support the audio element. </audio>
+<div class="modal consultant_modal fade" id="consultant_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+     <!-- <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Start Conversation</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" #closeBtn>×</span> </button>
+      </div>-->
+      <div class="modal-body">
+        <div class="receiving">
+          <div class="receiving-image"><img src="{{user_image}}" alt="" onError="this.src='assets/img/profile-icon.png'"/></div>
+          <div class="receiving-name">{{user_name}}</div>
+          <div class="receiving-email">{{user_email}}</div>
+          <div class="receiving-nationality-data">
+						<div class="nationality-flag"><img alt="" src="assets/img/flags/4x3/in.svg"></div>
+						<div class="nationality-name">Indian</div>
+          </div>
+          <div class="receiving-text">{{'accept_or_reject' | translate}} {{(service_type=='1')?('chat' | translate):(service_type=='2')?('voice' | translate):(service_type=='3')?('video' | translate):''}} {{'call' | translate}}</div>
+          <div class="receiving-options">
+            <a href="javascript:void(0)" class="btn-option btn-answer" (click)="acceptCall()" id="answercall"><i class="fas fa-fw fa-phone-alt"></i></a>
+            <a href="javascript:void(0)" class="btn-option btn-reject" (click)="rejectCall()" id="reject"><i class="fas fa-fw fa-phone-alt"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal user_calling_modal fade" id="user_calling_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!--<div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sending {{(service_type=='1')?'Voice':(service_type=='2')?'Chat':(service_type=='3')?'Video':''}} Request</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true" #closeBtn>×</span> </button>
+      </div>-->
+      <div class="modal-body">
+        
+        <div class="calling">
+          <div class="calling-image"><img src="{{consultant_image}}" alt="" onError="this.src='assets/img/profile-icon.png'"/></div>
+          <div class="calling-name">{{consultant_name}}</div>
+          <div class="calling-email">{{consultant_email}}</div>
+          <div class="calling-nationality-data">
+						<div class="nationality-flag"><img alt="" src="assets/img/flags/4x3/{{country_code | lowercase}}.svg"></div>
+						<div class="nationality-name">{{country_name}}</div>
+          </div>
+          <div class="calling-text">{{calling_status | translate}}...</div>
+          <div class="calling-options">
+            <!--<a href="javascript:void(0)" class="btn-option btn-answer"><i class="fas fa-fw fa-phone-alt"></i></a>-->
+            <a href="javascript:void(0)" class="btn-option btn-reject" (click)="userCancel()"><i class="fas fa-fw fa-phone-alt"></i></a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

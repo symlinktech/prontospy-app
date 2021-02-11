@@ -1,0 +1,43 @@
+app-reviews{
+	.consultant-reviews{background: #fff;overflow: hidden;margin: 0 0 20px;}
+	.consultant-reviews{
+		.title{font-size: 20px;font-weight: 300;line-height: 1.5;margin: 0 0 10px;color: var(--secondaryColor);}
+		.review-list{position: relative;}
+		.review-list{
+			.item{position: relative;display: flex;flex-wrap: wrap;padding: 15px 0;}
+			.item+.item{border-top:1px solid rgba(0,0,0,0.05);}
+			.item-image{position: relative;width: 100px;height: 100px;overflow: hidden;border-radius: 50%;background-color: #fff;border: 1px solid #ccc; z-index: 0;}
+			.item-image:before{content: '';position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: transparent;z-index: 1;border: 5px solid #eee;border-radius: 50%;}
+			.item-image:after{content: '';position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: transparent;z-index: 2;border: 4px solid #fff;border-radius: 50%;}
+			.item-image img{width:100%; height:100%; object-fit:cover;}
+			.item-content{width: 100%;max-width: calc(100% - 120px);margin: 0 0 0 20px;}
+			.item-content{
+//				.item-date{ display: none;}
+				.item-name{font-size: 15px;font-weight: 600;line-height: 1.5;margin: 0 0 5px;color: var(--secondaryColor);}
+				.item-rating{margin: 0 0 10px;}
+				.item-comments{font-family: 'Open Sans', sans-serif;font-weight: 300;color: var(--secondaryColor);line-height: 1.4;}
+			}
+		}
+		.review-action{ display: flex; justify-content: flex-end; margin: 20px 0 0;}
+		.review-action{
+			.btn-action{display: block;padding: 8px 16px;background: var(--primaryColor);color: #fff;text-transform: uppercase;font-size: 16px;line-height: 1.5;}
+		}
+		.overall-rating{display: flex;justify-content: center;margin: 0 -10px;margin-bottom: 20px;padding-bottom: 10px;border-bottom: 1px solid rgba(0,0,0,0.1);}
+		.overall-rating{
+			.item{width: 33.33%;max-width: calc(33.33% - 20px);margin: 5px 10px;background-color: #fff;border: 1px solid rgba(0,0,0,0.1);padding: 5px;border-radius: 10px;display: flex;flex-direction: column;align-items: center; min-height: 100px; justify-content: center;}
+			.item{
+				.item-name{font-size: 13px;text-transform: uppercase;text-align: center;font-weight: 400;line-height: 1;margin: 0 0 10px;}
+				.item-rating{}
+				.item-rating{
+					.rating{font-size: 24px;width: 130px;}
+					.rating{
+						.back{font-size: 24px;width: 130px;}
+						.back i{width: 26px;}
+						.front{font-size: 24px;width: 130px;}
+						.front i{width: 26px;}
+					}
+				}
+			}
+		}
+	}
+}

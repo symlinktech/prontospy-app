@@ -1,0 +1,73 @@
+<section class="sec-dashboard" >
+	<div class="container container-bg">
+		<app-user-header [name]="'client_notes' | translate"></app-user-header>
+		<div class="row position-relative">
+			<div class="col-md-3 col-lg-2">
+				<app-user-sidebar></app-user-sidebar>
+			</div>
+			<div class="col-sm-12 col-md-9 col-lg-10">
+				<div class="card-container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="sec-myaccount-header">
+								<div class="lable-text">{{'client_notes' | translate}}</div>
+                                <button (click)="addNote()" class="btn btn-primary">Add</button>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="emails-list">
+								<div class="email" *ngFor="let user of noteList;let i=index" >
+									<div class="e-image">
+										<img src="{{user.user_image}}" alt=""  onError="this.src='assets/img/profile-icon.png'"/>
+									</div>
+									<div class="e-content">
+										<div class="e-name">{{user.user_profile_name}}</div>
+										<div class="e-text">{{user.note}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="nodata-wrap" *ngIf="noteList?.length==0">
+						<div class="nodata-content">
+							<div class="icon">
+								<span class="fa-stack fa-2x">
+									<i class="fal fa-fw fa-stack-2x fa-circle"></i>
+									<i class="fal fa-fw fa-stack-2x fa-slash" style="opacity: 0.5"></i>
+									<i class="fas fa-fw fa-stack-1x fa-list"></i>
+								</span>
+							</div>
+							<div class="nodata-title">{{'no_data_found' | translate}}</div>
+							<div class="nodata-text">{{'it_seems_no_data_found' | translate}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal" id="noteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{'add_note' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <div class="form-input-group">
+                    <div class="icon"><i class="fal fa-fw fa-user"></i></div>
+                    <input type="text" class="form-control" placeholder="{{'note' | translate}}" [(ngModel)]="note"/>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="saveNote()">{{'save' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>

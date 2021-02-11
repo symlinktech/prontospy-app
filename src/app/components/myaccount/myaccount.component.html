@@ -1,0 +1,225 @@
+<section class="sec-dashboard" >
+	<div class="container container-bg">
+		<app-user-header [name]="name | translate"></app-user-header>
+		<div class="row position-relative">
+			<div class="col-md-3 col-lg-2">
+			<app-user-sidebar></app-user-sidebar>
+			</div>
+			<div class="col-md-9 col-lg-10">
+				<div class="card-container">
+					<app-user-tab></app-user-tab>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="sec-myaccount-header">
+								<div class="lable-text">{{'personal_information' | translate}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-5 col-lg-3">
+							<div class="myaccount-profile-img">
+								<label class="" for="profilePicture">
+									<div class="myaccount-profile-img-warp">
+										<img src="assets/img/profile-icon.png" alt="" *ngIf="!image">
+										<img src="{{image}}" alt="" *ngIf="image">
+									</div>
+									<input type="file" class="" id="profilePicture" (change)="onFileChange($event)">
+									<div class="upload-icon"><i class="fal fa-camera"></i></div>
+								</label>
+							</div>
+						</div>
+						<div class="col-md-12 col-lg-9">
+							<div class="row form-row">
+								<div class="col-md-4 col-lg-4">
+									<div class="form-group">
+										<label class="control-label">{{'name' | translate}}</label>
+										<input type="text" class="form-control" placeholder="{{'name' | translate}}" name="first_name" [(ngModel)]="first_name">
+									</div>
+								</div>
+								<div class="col-md-4 col-lg-4">
+									<div class="form-group">
+										<label class="control-label">{{'surname' | translate}}</label>
+										<input type="text" class="form-control" placeholder="{{'surname' | translate}}" name="last_name" [(ngModel)]="last_name">
+									</div>
+								</div>
+								<div class="col-md-4 col-lg-4">
+									<div class="form-group">
+										<label class="control-label">{{'second_surname' | translate}}</label>
+										<input type="text" class="form-control" placeholder="{{'second_surname' | translate}}" name="second_last_name" [(ngModel)]="second_last_name">
+									</div>
+								</div>
+							</div>
+							<div class="row form-row">
+								<!-- <div class="col-md-5 col-lg-5">
+									<div class="form-group">
+										<label class="control-label">{{'personal_email' | translate}}</label>
+										<input type="email" class="form-control" placeholder="{{'email' | translate}}"  name="personal_email" [(ngModel)]="personal_email">
+									</div>
+								</div> -->
+								<div class="col-5 col-md-2 col-lg-2">
+									<div class="form-group">
+										<label class="control-label">{{'telephone_code' | translate}}</label>
+										<div class="phonecode dropdown">
+											<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-toggle">
+												<span class="flag"><img src="assets/img/flags/4x3/{{flag_code?flag_code:'it'}}.svg" alt="English"/></span>
+												<span class="phonecode-name">{{personal_telephone_code?personal_telephone_code:'Select Telephone Code'}}</span>
+											</a>
+											<div class="dropdown-menu">
+												<div class="input-search">
+													<input type="text" class="form-control" placeholder="search"  name="phonecode_search" (keyup)="autoSearch($event)">
+												</div>
+												<div class="dropdown-menu-wrap">
+													<ng-container *ngFor="let phone of PhoneCodeList">
+														<a href="javascript:void(0)" class="dropdown-item" (click)="changePhoneCode(phone.phonecode,phone.iso2)" id="en">
+															<span class="flag"><img src="assets/img/flags/4x3/{{phone.iso2 | lowercase}}.svg" alt="English"/></span>
+															<span class="phonecode-name">{{phone.phonecode}}</span>
+														</a>
+													</ng-container>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-7 col-md-2 col-lg-2">
+									<div class="form-group">
+										<label class="control-label">{{'telephone' | translate}}</label>
+										<input type="tel" class="form-control" placeholder="{{'telephone' | translate}}"  name="personal_telephone" [(ngModel)]="personal_telephone">
+									</div>
+								</div>
+								<div class="col-12 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label">{{'date_birth' | translate}}</label>
+										<input type="text" class="form-control" id="personal_dob" placeholder="{{'date_birth' | translate}}" name="dob" autocomplete="off"/>
+									</div>
+								</div>
+								<div class="col-6 col-md-3 col-lg-4">
+									<div class="form-group">
+										<label class="control-label">{{'gender' | translate}}</label>
+										<select id="gender" class="form-control select2" name="gender">
+											<option value="#" selected>{{'gender' | translate}}</option>
+											<option value="1">{{'male' | translate}}</option>
+											<option value="2">{{'female' | translate}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-6 col-md-4 col-lg-4">
+									<div class="form-group">
+										<label class="control-label">{{'nationality' | translate}}</label>
+										<select id="nationality" class="form-control select2" name="nationality" [(ngModel)]="nationality">
+											<option value="#" selected>{{'nationality' | translate}}</option>
+											<option value="{{nationality.id}}" *ngFor="let nationality of NationalityList">{{nationality.nationality}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-5 col-lg-4">
+									<div class="form-group">
+										<label class="control-label">{{'select_timezone' | translate}}</label>
+										<select class="form-control select2" name="timezone" id="timezone" [(ngModel)]="timezone">
+											<!-- <option value="" disabled selected>{{'select_timezone' | translate}}</option> -->
+											<option value="{{zone.id}}" *ngFor="let zone of timeZones">{{zone.zone}}</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="sec-myaccount-header mt-4">
+								<div class="lable-text">{{'address_information' | translate}}</div>
+							</div>
+							<div class="row form-row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label class="control-label">{{'address_residence' | translate}}</label>
+										<input type="text" class="form-control" placeholder="{{'address_residence' | translate}}" name="personal_address" [(ngModel)]="personal_address">
+									</div>
+								</div>
+								<div class="col-6 col-md-6 col-lg-3">
+									<div class="form-group">
+										<label class="control-label">{{'country_residence' | translate}}</label>
+										<select id="personal_country" class="form-control select2" name="personal_country" [(ngModel)]="personal_country">
+											<option value="" selected>{{'country_residence' | translate}}</option>
+											<option value="{{country.id}}" *ngFor="let country of CountryList" >{{country.name}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-6 col-md-6 col-lg-3">
+									<div class="form-group">
+										<label class="control-label">{{'province_residence' | translate}}</label>
+										<input type="text" class="form-control" placeholder="{{'province_residence' | translate}}" name="personal_province" [(ngModel)]="personal_province" id="personal_province">
+
+										<!-- <select id="personal_province" class="form-control select2" name="personal_province" [(ngModel)]="personal_province">
+											<option value="" selected>{{'province_residence' | translate}}</option>
+											<option value="{{state.id}}" *ngFor="let state of StateList" >{{state.name}}</option>
+										</select> -->
+									</div>
+								</div>
+								<div class="col-6 col-md-6 col-lg-3">
+									<div class="form-group">
+										<label class="control-label">{{'city_residence' | translate}}</label>
+										<input type="text" class="form-control" placeholder="{{'city_residence' | translate}}" name="personal_city" [(ngModel)]="personal_city" id="personal_city">
+
+										<!-- <select id="personal_city" class="form-control city  select2" name="personal_city" [(ngModel)]="personal_city">
+											<option value="" selected>{{'city_residence' | translate}}</option>
+											<option value="{{city.id}}" *ngFor="let city of CityList" >{{city.name}}</option>
+										</select> -->
+									</div>
+								</div>
+								<div class="col-6 col-md-6 col-lg-3">
+									<div class="form-group">
+										<label class="control-label">{{'zipcode' | translate}}</label>
+										<input type="text" class="form-control" placeholder="{{'zipcode' | translate}}"  name="personal_zipcode" [(ngModel)]="personal_zipcode">
+									</div>
+								</div>
+							</div>
+							<div class="sec-myaccount-header mt-4">
+								<div class="lable-text">{{'birth_information' | translate}}</div>
+							</div>
+							<div class="row form-row">
+								<div class="col-md-4 col-lg-3">
+									<div class="form-group">
+										<label class="control-label">{{'country_birth_residence' | translate}}</label>
+										<select id="birth_country" class="form-control select2" name="birth_country" [(ngModel)]="birth_country">
+											<option value="" >{{'country_birth_residence' | translate}}</option>
+											<option value="{{country.id}}" *ngFor="let country of BirthCountryList">{{country.name}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-6 col-md-4 col-lg-3">
+									<div class="form-group">
+										<label class="control-label">{{'province_birth_residence' | translate}}</label>
+										<input type="text" class="form-control" placeholder="{{'province_birth_residence' | translate}}" name="birth_province" [(ngModel)]="birth_province" id="birth_province">
+										
+										<!-- <select id="birth_province" class="form-control select2" name="birth_province" [(ngModel)]="birth_province">
+											<option value="">{{'province_birth_residence' | translate}}</option>
+											<option value="{{state.id}}" *ngFor="let state of BirthStateList" >{{state.name}}</option>
+										</select> -->
+									</div>
+								</div>
+								<div class="col-6 col-md-4 col-lg-3">
+									<div class="form-group">
+										<label class="control-label">{{'city_birth_residence' | translate}}</label>
+										<input type="text" class="form-control" placeholder="{{'city_birth_residence' | translate}}" name="birth_city" [(ngModel)]="birth_city" id="birth_city">
+										
+										<!-- <select id="birth_city" class="form-control select2" name="birth_city" [(ngModel)]="birth_city">
+											<option value="">{{'city_birth_residence' | translate}}</option>
+											<option value="{{state.id}}" *ngFor="let state of BirthCityList" >{{state.name}}</option>
+										</select> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="sec-myaccount-header border-0 mt-3">
+								<div class="lable-text ml-auto"><button class="btn-universal" (click)="updatePersonalInfo()">{{'save_changes' | translate}}</button></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
